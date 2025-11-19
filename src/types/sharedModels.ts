@@ -272,10 +272,14 @@ export type CreateSessionInput = {
  * Context extraction from AI conversation
  */
 export interface ExtractedContext {
+  question?: string;
+  context?: string;
   options: Partial<DecisionOption>[];
   factors: Partial<DecisionFactor>[];
   stakeholders: Partial<Stakeholder>[];
-  confidence: number;
+  successCriteria?: string;
+  timeline?: string;
+  confidence?: number;
 }
 
 /**

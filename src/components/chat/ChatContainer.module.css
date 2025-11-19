@@ -1,0 +1,477 @@
+/**
+ * ChatContainer Styles
+ * Resizable bottom-docked conversational interface
+ * Olumi Design System v1.2
+ */
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-paper);
+  border-top: 1px solid var(--border-default);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+  z-index: var(--z-modal);
+  transition: height var(--duration-base) var(--ease-out);
+  overflow: hidden;
+}
+
+/* ============================================
+   DRAG HANDLE
+   ============================================ */
+
+.dragHandle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ns-resize;
+  z-index: 10;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.dragHandle:hover {
+  background: var(--bg-subtle);
+}
+
+.dragHandle:active {
+  background: var(--sand-200);
+}
+
+.dragIndicator {
+  width: 40px;
+  height: 4px;
+  background: var(--border-default);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.dragHandle:hover .dragIndicator {
+  background: var(--border-hover);
+}
+
+.dragHandle:active .dragIndicator {
+  background: var(--text-secondary);
+}
+
+/* Hide drag handle when collapsed */
+.collapsed .dragHandle {
+  cursor: default;
+  pointer-events: none;
+}
+
+.collapsed .dragIndicator {
+  opacity: 0;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-default);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+  min-height: 64px;
+  margin-top: 12px; /* Space for drag handle */
+}
+
+.header:hover {
+  background: var(--bg-subtle);
+}
+
+.collapsed .header {
+  border-bottom: none;
+  margin-top: 0;
+}
+
+.collapsed .header:hover {
+  background: var(--bg-subtle);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.headerIcon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-subtle);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.headerTitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.messageCount {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   HEADER ACTIONS
+   ============================================ */
+
+.headerActions {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.headerButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.headerButton:hover {
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+}
+
+.headerButton:active {
+  background: var(--sand-200);
+}
+
+.headerButton:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Prevent header click when clicking buttons */
+.headerButton {
+  pointer-events: auto;
+}
+
+/* ============================================
+   MESSAGES
+   ============================================ */
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: var(--radius-sm);
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--space-xl);
+  text-align: center;
+  animation: fadeIn var(--duration-base) var(--ease-out);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: var(--space-md);
+  opacity: 0.5;
+}
+
+.emptyText {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  max-width: 400px;
+}
+
+.emptyHint {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 400px;
+}
+
+/* ============================================
+   STATE STYLES
+   ============================================ */
+
+/* Collapsed State (64px) */
+.collapsed {
+  height: 64px !important;
+}
+
+.collapsed .messages,
+.collapsed .chatInput {
+  display: none;
+}
+
+/* Medium State (400px) */
+.medium {
+  height: 400px;
+}
+
+/* Full State (80vh) */
+.full {
+  height: 80vh;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.container {
+  animation: slideUp var(--duration-base) var(--ease-out);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container {
+    left: 0;
+    right: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  /* On mobile, collapsed is smaller */
+  .collapsed {
+    height: 56px !important;
+  }
+
+  .collapsed .header {
+    padding: var(--space-sm) var(--space-md);
+    min-height: 56px;
+  }
+
+  /* Medium and full states take more space on mobile */
+  .medium {
+    height: 50vh;
+  }
+
+  .full {
+    height: 90vh;
+  }
+
+  .header {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .messages {
+    padding: var(--space-md);
+  }
+
+  .emptyState {
+    padding: var(--space-lg);
+  }
+
+  .headerIcon {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .headerTitle {
+    font-size: var(--text-body);
+  }
+}
+
+/* ============================================
+   TABLET
+   ============================================ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 1px solid var(--border-default);
+    border-right: 1px solid var(--border-default);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+}
+
+/* ============================================
+   DESKTOP (WIDE)
+   ============================================ */
+
+@media (min-width: 1025px) {
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 1px solid var(--border-default);
+    border-right: 1px solid var(--border-default);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .dragHandle {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+    transition: none;
+  }
+
+  .messages {
+    scroll-behavior: auto;
+  }
+
+  .emptyState {
+    animation: none;
+  }
+
+  .dragHandle,
+  .header,
+  .headerButton {
+    transition: none;
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  .container {
+    border-top-width: 2px;
+  }
+
+  .header {
+    border-bottom-width: 2px;
+  }
+
+  .dragIndicator {
+    height: 5px;
+    background: var(--text-primary);
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT (FUTURE)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ============================================
+   FOCUS TRAP (ACCESSIBILITY)
+   ============================================ */
+
+.container:focus-within {
+  z-index: calc(var(--z-modal) + 1);
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.container[data-loading='true'] {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* ============================================
+   ERROR STATE
+   ============================================ */
+
+.container[data-error='true'] .header {
+  background: var(--carrot-500);
+  color: white;
+}

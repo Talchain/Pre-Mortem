@@ -13,6 +13,7 @@ import {
 import { DecisionSession, Message } from '@/types/sharedModels';
 import { AIModel, AI_MODELS } from '@/types/premortem';
 import { saveSession, loadSession } from '@/services/sessionStorage';
+import { processConversationalMessage } from '@/services/aiOrchestration';
 
 /* ============================================
    CONTEXT INTERFACE
@@ -89,21 +90,69 @@ export function DecisionSessionProvider({
 
   const sendMessage = useCallback(
     async (content: string) => {
-      if (!state.session) return;
+      if (!state.session || !state.selectedModel) return;
 
-      const message: Message = {
+      // Add user message
+      const userMessage: Message = {
         id: crypto.randomUUID(),
         role: 'user',
         content,
         timestamp: new Date().toISOString(),
       };
 
-      dispatch({ type: 'ADD_MESSAGE', payload: message });
+      dispatch({ type: 'ADD_MESSAGE', payload: userMessage });
 
-      // AI response will be handled by AI orchestration service
-      // (to be implemented in Phase 4)
+      // Set typing indicator
+      dispatch({ type: 'SET_TYPING', payload: true });
+
+      try {
+        // Get AI response via orchestration
+        const response = await processConversationalMessage(
+          content,
+          state.session,
+          state.session.conversation,
+          state.selectedModel
+        );
+
+        // Add AI response message
+        const aiMessage: Message = {
+          id: crypto.randomUUID(),
+          role: 'olumi',
+          content: response.content,
+          timestamp: new Date().toISOString(),
+          reasoning: response.reasoning,
+          metadata: response.metadata,
+        };
+
+        dispatch({ type: 'ADD_MESSAGE', payload: aiMessage });
+
+        // If context was extracted, update session
+        if (response.metadata?.extractedContext) {
+          const fullContext = {
+            ...response.metadata.extractedContext,
+            options: response.metadata.extractedContext.options || [],
+            factors: response.metadata.extractedContext.factors || [],
+            stakeholders: response.metadata.extractedContext.stakeholders || [],
+          };
+          dispatch({ type: 'EXTRACT_CONTEXT', payload: fullContext });
+        }
+      } catch (error) {
+        console.error('Failed to get AI response:', error);
+
+        // Add error message
+        const errorMessage: Message = {
+          id: crypto.randomUUID(),
+          role: 'system',
+          content: 'I encountered an error. Could you try rephrasing your message?',
+          timestamp: new Date().toISOString(),
+        };
+
+        dispatch({ type: 'ADD_MESSAGE', payload: errorMessage });
+      } finally {
+        dispatch({ type: 'SET_TYPING', payload: false });
+      }
     },
-    [state.session]
+    [state.session, state.selectedModel]
   );
 
   const updateModel = useCallback((model: AIModel) => {
