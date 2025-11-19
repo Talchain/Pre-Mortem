@@ -1,3 +1,8 @@
+/**
+ * Tailwind Configuration - Olumi Design System v1.2
+ * Extended with Olumi tokens for seamless integration
+ */
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,59 +11,151 @@ export default {
   ],
   theme: {
     extend: {
+      /* ========================================
+         COLORS - Olumi Cognitive Spectrum
+         ======================================== */
       colors: {
+        // Foundation Neutrals
+        ink: {
+          900: '#262626',
+          700: '#404040',
+          500: '#737373',
+        },
+        canvas: {
+          25: '#F4F0EA',
+        },
+        paper: {
+          50: '#FEF9F3',
+        },
+        sand: {
+          100: '#EDE8DD',
+          200: '#E1D8C7',
+        },
+
+        // Cognitive Spectrum
+        sun: {
+          400: '#F7D05F',
+          500: '#F5C433',  // Primary actions
+          600: '#E8B61F',
+        },
+        mint: {
+          300: '#8DD4B4',
+          400: '#62B28F',
+          500: '#67C89E',  // Success
+        },
+        sky: {
+          200: '#BFE3F4',
+          500: '#63ADCF',  // Information
+          600: '#5C9BB8',
+        },
+        carrot: {
+          400: '#ED9163',
+          500: '#EA7B4B',  // Warning/Danger
+          600: '#D96A3C',
+        },
+        lilac: {
+          300: '#B5B2F5',
+          400: '#9E9AF1',  // Secondary accents
+        },
+
+        // Supporting
+        periwinkle: {
+          200: '#C9D9FF',
+        },
+        banana: {
+          200: '#FFE497',
+        },
+
+        // Semantic shortcuts (for Tailwind utilities)
         primary: {
-          50: '#EEF2FF',
-          100: '#E0E7FF',
-          200: '#C7D2FE',
-          300: '#A5B4FC',
-          400: '#818CF8',
-          500: '#6366F1', // Primary Indigo
-          600: '#4F46E5',
-          700: '#4338CA',
-          800: '#3730A3',
-          900: '#312E81',
+          DEFAULT: '#F5C433',
+          hover: '#E8B61F',
+          active: '#F7D05F',
         },
-        secondary: {
-          50: '#FAF5FF',
-          100: '#F3E8FF',
-          200: '#E9D5FF',
-          300: '#D8B4FE',
-          400: '#C084FC',
-          500: '#A855F7', // Primary Purple
-          600: '#9333EA',
-          700: '#7E22CE',
-          800: '#6B21A8',
-          900: '#581C87',
+        success: {
+          DEFAULT: '#67C89E',
         },
-        neutral: {
-          50: '#F8FAFC',
-          100: '#F1F5F9',
-          200: '#E2E8F0',
-          300: '#CBD5E1',
-          400: '#94A3B8',
-          500: '#64748B',
-          600: '#475569',
-          700: '#334155',
-          800: '#1E293B',
-          900: '#0F172A',
+        info: {
+          DEFAULT: '#63ADCF',
         },
-        accent: {
-          electric: '#3B82F6', // Electric Blue for CTAs
-          success: '#10B981',
-          warning: '#F59E0B',
-          error: '#EF4444',
-        }
+        warning: {
+          DEFAULT: '#EA7B4B',
+        },
+        danger: {
+          DEFAULT: '#EA7B4B',
+        },
       },
+
+      /* ========================================
+         TYPOGRAPHY - League Spartan
+         ======================================== */
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Manrope', 'Inter', 'sans-serif'],
+        sans: ['League Spartan', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+        primary: ['League Spartan', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
       },
+
+      fontSize: {
+        'hero': ['3rem', '1.10'],           // 48px
+        'heading-lg': ['2.5rem', '1.15'],   // 40px
+        'heading-md': ['1.75rem', '1.20'],  // 28px
+        'heading-sm': ['1.375rem', '1.40'], // 22px
+        'body': ['1rem', '1.55'],           // 16px
+        'label': ['0.875rem', '1.30'],      // 14px
+      },
+
+      fontWeight: {
+        semibold: 600,
+        regular: 400,
+      },
+
+      /* ========================================
+         SPACING - 8px Grid
+         ======================================== */
+      spacing: {
+        'xs': '0.5rem',   // 8px
+        'sm': '0.75rem',  // 12px
+        'md': '1rem',     // 16px
+        'lg': '1.5rem',   // 24px
+        'xl': '2rem',     // 32px
+        '2xl': '3rem',    // 48px
+        '3xl': '4rem',    // 64px
+      },
+
+      /* ========================================
+         BORDER RADIUS
+         ======================================== */
+      borderRadius: {
+        'sm': '0.5rem',   // 8px
+        'md': '0.75rem',  // 12px
+        'lg': '1.25rem',  // 20px
+        'pill': '999px',
+      },
+
+      /* ========================================
+         BOX SHADOWS - Olumi Elevation
+         ======================================== */
+      boxShadow: {
+        '0': 'none',
+        '1': '0 1px 2px rgba(38, 38, 38, 0.06)',
+        '2': '0 4px 12px rgba(38, 38, 38, 0.10)',
+        '3': '0 8px 24px rgba(38, 38, 38, 0.14)',
+        // Legacy names for compatibility
+        'card': '0 4px 12px rgba(38, 38, 38, 0.10)',
+        'elevated': '0 4px 12px rgba(38, 38, 38, 0.10)',
+        'modal': '0 8px 24px rgba(38, 38, 38, 0.14)',
+      },
+
+      /* ========================================
+         ANIMATIONS - Olumi Motion
+         ======================================== */
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in',
-        'slide-up': 'slideUp 0.4s ease-out',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in': 'fadeIn 0.3s ease-out',
+        'slide-up': 'slideUp 0.3s ease-out',
+        'slide-down': 'slideDown 0.3s ease-out',
+        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+        'spin': 'spin 1s linear infinite',
       },
+
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
@@ -68,13 +165,55 @@ export default {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        slideDown: {
+          '0%': { transform: 'translateY(-20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.5' },
+        },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
-      boxShadow: {
-        'card': '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)',
-        'elevated': '0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.08)',
-        'modal': '0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04)',
+
+      /* ========================================
+         TRANSITIONS - Olumi Timing
+         ======================================== */
+      transitionDuration: {
+        'instant': '100ms',
+        'fast': '200ms',
+        'base': '300ms',
+        'slow': '400ms',
+      },
+
+      transitionTimingFunction: {
+        'ease-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'ease-out': 'cubic-bezier(0.0, 0, 0.2, 1)',
+        'ease-in': 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+
+      /* ========================================
+         Z-INDEX Scale
+         ======================================== */
+      zIndex: {
+        'base': 0,
+        'dropdown': 100,
+        'sticky': 200,
+        'modal': 300,
+        'popover': 400,
+        'tooltip': 500,
       },
     },
   },
   plugins: [],
+  safelist: [
+    // Ensure design token classes are always available
+    'bg-canvas-25',
+    'bg-paper-50',
+    'text-ink-900',
+    'border-sand-200',
+  ],
 }
