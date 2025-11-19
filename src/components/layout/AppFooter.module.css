@@ -1,0 +1,211 @@
+/**
+ * AppFooter Styles
+ * Olumi Design System v1.2
+ */
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  margin-top: auto;
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border-default);
+  padding: var(--space-2xl) 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ============================================
+   CONTENT
+   ============================================ */
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.brandIcon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.brandText {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.brandText strong {
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.link {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--lilac-400);
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.separator {
+  color: var(--text-tertiary);
+  font-weight: normal;
+  user-select: none;
+}
+
+/* ============================================
+   COPYRIGHT
+   ============================================ */
+
+.copyright {
+  text-align: center;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-default);
+}
+
+.copyright p {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ============================================
+   ATTRIBUTION
+   ============================================ */
+
+.attribution {
+  text-align: center;
+}
+
+.attribution p {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.heart {
+  display: inline-block;
+  color: var(--carrot-500);
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  10%,
+  30% {
+    transform: scale(1.1);
+  }
+  20%,
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .footer {
+    padding: var(--space-xl) 0;
+  }
+
+  .container {
+    padding: 0 var(--space-lg);
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .branding {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .brandText {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .brandText .separator {
+    display: none;
+  }
+
+  .links {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+
+  .heart {
+    animation: none;
+  }
+}

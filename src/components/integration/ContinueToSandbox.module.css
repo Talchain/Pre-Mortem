@@ -1,0 +1,422 @@
+/**
+ * ContinueToSandbox Styles
+ * Olumi Design System v1.2
+ */
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-xl) 0;
+  animation: slideUp var(--duration-base) var(--ease-out);
+}
+
+/* ============================================
+   CARD
+   ============================================ */
+
+.card {
+  background: linear-gradient(135deg, var(--bg-paper) 0%, var(--bg-subtle) 100%);
+  border: 2px solid var(--lilac-400);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-2);
+  text-align: center;
+}
+
+.icon {
+  font-size: 64px;
+  margin-bottom: var(--space-lg);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ============================================
+   CONTENT
+   ============================================ */
+
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+  line-height: 1.3;
+}
+
+.description {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-xl) 0;
+  line-height: 1.6;
+}
+
+/* ============================================
+   FEATURES
+   ============================================ */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  text-align: left;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.feature:hover {
+  border-color: var(--lilac-400);
+  box-shadow: var(--shadow-1);
+  transform: translateY(-2px);
+}
+
+.featureIcon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.featureContent {
+  text-align: center;
+}
+
+.featureTitle {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.featureDesc {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ============================================
+   STATUS MESSAGES
+   ============================================ */
+
+.statusMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border-default);
+  border-top-color: var(--lilac-400);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  background: rgba(234, 123, 75, 0.1);
+  border: 1px solid var(--carrot-500);
+  border-radius: var(--radius-md);
+}
+
+.errorIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.errorContent {
+  flex: 1;
+  text-align: left;
+}
+
+.errorContent strong {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--carrot-500);
+  margin-bottom: var(--space-xs);
+}
+
+.errorContent p {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.unavailableMessage {
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.unavailableMessage p {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-sm) 0;
+  line-height: 1.5;
+}
+
+.unavailableMessage p:last-child {
+  margin-bottom: 0;
+}
+
+.unavailableHint {
+  font-size: var(--text-label) !important;
+  color: var(--text-tertiary) !important;
+}
+
+/* ============================================
+   ACTIONS
+   ============================================ */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.primaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 400px;
+  height: 56px;
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--ink-900);
+  background: var(--lilac-400);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: var(--lilac-500);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+.primaryButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-1);
+}
+
+.primaryButton:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.buttonIcon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttonSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: var(--ink-900);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 300px;
+  height: 48px;
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.secondaryButton:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-1);
+}
+
+.secondaryButton:active {
+  transform: scale(0.98);
+}
+
+.secondaryButton:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.retryIcon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.versionInfo {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-lg) 0;
+  }
+
+  .card {
+    padding: var(--space-xl);
+  }
+
+  .icon {
+    font-size: 48px;
+  }
+
+  .title {
+    font-size: var(--text-heading-sm);
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .feature {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .featureContent {
+    text-align: left;
+  }
+
+  .primaryButton {
+    max-width: 100%;
+  }
+
+  .secondaryButton {
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+  }
+
+  .icon {
+    animation: none;
+  }
+
+  .spinner,
+  .buttonSpinner {
+    animation: none;
+  }
+
+  .feature:hover {
+    transform: none;
+  }
+
+  .primaryButton:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -4,12 +4,20 @@
  * Replaces traditional 7-step wizard with simplified flow
  */
 
+import { useState } from 'react';
 import { DecisionSessionProvider } from '@/context/DecisionSessionContext';
 import { DecisionEntry } from '@/components/DecisionEntry';
 import { ContextRefiner } from '@/components/ContextRefiner';
 import { ScenarioList } from '@/components/scenarios';
 import { ChatContainer } from '@/components/chat';
 import { ModelSelector } from '@/components/common/ModelSelector';
+import { ContinueToSandbox } from '@/components/integration/ContinueToSandbox';
+import { PostMortemTrigger } from '@/components/postmortem/PostMortemTrigger';
+import { OutcomeEntry } from '@/components/postmortem/OutcomeEntry';
+import { AppHeader } from '@/components/layout/AppHeader';
+import { AppFooter } from '@/components/layout/AppFooter';
+import { HelpModal } from '@/components/help/HelpModal';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { AIModel } from '@/types/premortem';
 import styles from './App.module.css';
@@ -17,6 +25,7 @@ import styles from './App.module.css';
 function AppContent() {
   const { state, updateModel } = useDecisionSession();
   const { session, selectedModel } = state;
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   const hasSession = !!session;
   const hasScenarios = (session?.premortem?.failure_scenarios.length || 0) > 0;
@@ -27,24 +36,17 @@ function AppContent() {
 
   return (
     <div className={styles.app}>
-      {/* Header */}
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.branding}>
-            <div className={styles.logo}>🎯</div>
-            <div className={styles.brandText}>
-              <h1 className={styles.brandTitle}>Olumi Pre-Mortem</h1>
-              <p className={styles.brandSubtitle}>AI-powered decision analysis</p>
-            </div>
-          </div>
+      {/* App Header */}
+      <AppHeader onHelpClick={() => setIsHelpOpen(true)} />
 
-          <div className={styles.headerActions}>
-            {selectedModel && (
-              <ModelSelector selectedModel={selectedModel} onModelChange={handleModelChange} />
-            )}
+      {/* Model Selector Bar */}
+      {selectedModel && (
+        <div className={styles.modelSelectorBar}>
+          <div className={styles.modelSelectorContent}>
+            <ModelSelector selectedModel={selectedModel} onModelChange={handleModelChange} />
           </div>
         </div>
-      </header>
+      )}
 
       {/* Main Content */}
       <main className={styles.main}>
@@ -65,6 +67,15 @@ function AppContent() {
               <ScenarioList />
             </div>
           )}
+
+          {/* Continue to Sandbox (only show if scenarios complete) */}
+          {hasScenarios && <ContinueToSandbox />}
+
+          {/* Post-Mortem Trigger (only show if decision is made) */}
+          <PostMortemTrigger />
+
+          {/* Outcome Entry (only show if post-mortem started) */}
+          <OutcomeEntry />
 
           {/* Informational Content (only show if no active session) */}
           {!hasSession && (
@@ -105,26 +116,22 @@ function AppContent() {
       {/* Chat Container (always rendered, manages its own visibility) */}
       <ChatContainer />
 
-      {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.footerText}>
-            🔒 Data stored locally • No server transmission • Privacy-first design
-          </p>
-          <p className={styles.footerText}>
-            v2.0 • Powered by Anthropic Claude & OpenAI
-          </p>
-        </div>
-      </footer>
+      {/* App Footer */}
+      <AppFooter />
+
+      {/* Help Modal */}
+      <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
     </div>
   );
 }
 
 function App() {
   return (
-    <DecisionSessionProvider>
-      <AppContent />
-    </DecisionSessionProvider>
+    <ErrorBoundary>
+      <DecisionSessionProvider>
+        <AppContent />
+      </DecisionSessionProvider>
+    </ErrorBoundary>
   );
 }
 

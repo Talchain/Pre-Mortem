@@ -1,64 +1,116 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle } from 'lucide-react';
-import { Button } from './Button';
+/**
+ * ErrorBoundary Component
+ * Catches JavaScript errors and displays fallback UI
+ * Olumi Design System v1.2
+ */
 
-interface Props {
+import { Component, ReactNode } from 'react';
+import styles from './ErrorBoundary.module.css';
+
+interface ErrorBoundaryProps {
   children: ReactNode;
+  fallback?: ReactNode;
 }
 
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
+  errorInfo: React.ErrorInfo | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
-    error: null,
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null,
+    };
+  }
+
+  static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Log error to console in development
+    if (import.meta.env.DEV) {
+      console.error('ErrorBoundary caught an error:', error, errorInfo);
+    }
+
+    this.setState({
+      error,
+      errorInfo,
+    });
+  }
+
+  handleReset = () => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
+    });
   };
 
-  public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
-  }
-
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
-  }
-
-  private handleReset = () => {
-    this.setState({ hasError: false, error: null });
+  handleReload = () => {
     window.location.reload();
   };
 
-  public render() {
+  render() {
     if (this.state.hasError) {
+      // Custom fallback UI if provided
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+
+      // Default fallback UI
       return (
-        <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
-          <div className="max-w-md w-full bg-white rounded-xl shadow-elevated p-8 text-center">
-            <div className="w-16 h-16 bg-accent-error/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <AlertTriangle className="w-8 h-8 text-accent-error" />
-            </div>
-
-            <h1 className="text-2xl font-bold text-neutral-900 mb-2">
-              Something went wrong
-            </h1>
-
-            <p className="text-neutral-600 mb-6">
-              We encountered an unexpected error. Don't worry, your data is
-              saved. Please try refreshing the page.
+        <div className={styles.container}>
+          <div className={styles.card}>
+            <div className={styles.icon}>⚠️</div>
+            <h2 className={styles.title}>Something went wrong</h2>
+            <p className={styles.message}>
+              We encountered an unexpected error. This has been logged and we'll look into it.
             </p>
 
-            {this.state.error && (
-              <div className="bg-neutral-100 rounded-lg p-4 mb-6 text-left">
-                <p className="text-xs font-mono text-neutral-700">
-                  {this.state.error.message}
-                </p>
-              </div>
+            {/* Error details in development */}
+            {import.meta.env.DEV && this.state.error && (
+              <details className={styles.details}>
+                <summary className={styles.summary}>Error Details (Dev Mode)</summary>
+                <div className={styles.errorDetails}>
+                  <p className={styles.errorName}>{this.state.error.toString()}</p>
+                  {this.state.errorInfo && (
+                    <pre className={styles.errorStack}>
+                      {this.state.errorInfo.componentStack}
+                    </pre>
+                  )}
+                </div>
+              </details>
             )}
 
-            <Button onClick={this.handleReset} fullWidth>
-              Refresh Page
-            </Button>
+            {/* Actions */}
+            <div className={styles.actions}>
+              <button className={styles.primaryButton} onClick={this.handleReset}>
+                Try Again
+              </button>
+              <button className={styles.secondaryButton} onClick={this.handleReload}>
+                Reload Page
+              </button>
+            </div>
+
+            {/* Help */}
+            <p className={styles.helpText}>
+              If this problem persists, please{' '}
+              <a
+                href="https://github.com/yourusername/pre-mortem-tool/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                report the issue
+              </a>
+              .
+            </p>
           </div>
         </div>
       );

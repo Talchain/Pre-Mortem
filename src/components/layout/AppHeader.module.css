@@ -1,0 +1,283 @@
+/**
+ * AppHeader Styles
+ * Olumi Design System v1.2
+ */
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-paper);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: var(--shadow-1);
+}
+
+.container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+/* ============================================
+   BRAND
+   ============================================ */
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.logoIcon {
+  font-size: 36px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.tagline {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1;
+}
+
+/* ============================================
+   ACTIONS
+   ============================================ */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.versionBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-tertiary);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.versionBadge:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background: var(--bg-paper);
+}
+
+.versionBadge:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.helpButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  height: 40px;
+  padding: 0 var(--space-lg);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  background: var(--lilac-400);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+
+.helpButton:hover {
+  background: var(--lilac-500);
+  box-shadow: var(--shadow-1);
+  transform: translateY(-1px);
+}
+
+.helpButton:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.helpButton:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.helpIcon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--ink-900);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.helpText {
+  color: var(--ink-900);
+}
+
+/* ============================================
+   VERSION TOOLTIP
+   ============================================ */
+
+.versionTooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: var(--space-xl);
+  z-index: 200;
+  animation: fadeIn var(--duration-fast) var(--ease-out);
+}
+
+.tooltipContent {
+  padding: var(--space-md);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2);
+  min-width: 280px;
+}
+
+.tooltipContent strong {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.tooltipContent p {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-xs) 0;
+  line-height: 1.4;
+}
+
+.tooltipContent p:last-child {
+  margin-bottom: 0;
+}
+
+.tooltipHint {
+  color: var(--text-tertiary) !important;
+  font-style: italic;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .logoIcon {
+    font-size: 28px;
+  }
+
+  .title {
+    font-size: var(--text-body);
+  }
+
+  .tagline {
+    display: none;
+  }
+
+  .helpText {
+    display: none;
+  }
+
+  .helpButton {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .versionTooltip {
+    right: var(--space-lg);
+  }
+
+  .tooltipContent {
+    min-width: 240px;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .versionBadge,
+  .helpButton {
+    transition: none;
+  }
+
+  .helpButton:hover {
+    transform: none;
+  }
+
+  .versionTooltip {
+    animation: none;
+  }
+}
