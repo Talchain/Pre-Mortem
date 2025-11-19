@@ -1,0 +1,315 @@
+/**
+ * App Styles - Olumi Pre-Mortem Tool v2.0
+ * Olumi Design System v1.2
+ */
+
+/* ============================================
+   APP CONTAINER
+   ============================================ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-canvas);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--bg-paper);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: var(--shadow-1);
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.logo {
+  font-size: 32px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-subtle);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.brandTitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.brandSubtitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+
+.main {
+  flex: 1;
+  padding: var(--space-2xl) var(--space-lg);
+  padding-bottom: 120px; /* Space for chat when expanded + footer */
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.section {
+  animation: fadeIn var(--duration-base) var(--ease-out);
+}
+
+/* ============================================
+   INFO SECTION
+   ============================================ */
+
+.infoSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+
+.infoCard {
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.infoCard:hover {
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+.infoTitle {
+  font-family: var(--font-primary);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+  line-height: 1.3;
+}
+
+.infoText {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-paper);
+  border-top: 1px solid var(--border-default);
+  padding: var(--space-md) var(--space-lg);
+  z-index: calc(var(--z-modal) - 1); /* Below chat container */
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.footerText {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .headerContent {
+    padding: var(--space-md) var(--space-lg);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .brandTitle {
+    font-size: var(--text-heading-sm);
+  }
+
+  .main {
+    padding: var(--space-lg) var(--space-md);
+    padding-bottom: 100px;
+  }
+
+  .infoSection {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .infoCard {
+    padding: var(--space-lg);
+  }
+
+  .footer {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .footerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .footerText {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .branding {
+    gap: var(--space-sm);
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .brandTitle {
+    font-size: var(--text-body);
+  }
+
+  .brandSubtitle {
+    font-size: 11px;
+  }
+
+  .main {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    animation: none;
+  }
+
+  .infoCard {
+    transition: none;
+  }
+
+  .infoCard:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  .header,
+  .footer,
+  .headerActions {
+    display: none;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .app {
+    background: white;
+  }
+}
