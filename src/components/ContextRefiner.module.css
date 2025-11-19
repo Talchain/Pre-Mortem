@@ -1,0 +1,317 @@
+/**
+ * ContextRefiner Styles
+ * Olumi Design System v1.2
+ */
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.container {
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-1);
+  margin-bottom: var(--space-lg);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ============================================
+   PROGRESS RING
+   ============================================ */
+
+.progressBadge {
+  display: flex;
+  align-items: center;
+}
+
+.progressRing {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.progressRing svg {
+  transform: rotate(-90deg);
+}
+
+.progressPercent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-primary);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   ITEMS
+   ============================================ */
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.item {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-md);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.itemComplete {
+  background: rgba(103, 200, 158, 0.1); /* mint-500 with opacity */
+  border-left: 3px solid var(--mint-500);
+}
+
+.itemPending {
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--border-default);
+}
+
+.itemOptional {
+  background: var(--bg-subtle);
+  border-left: 3px solid var(--sand-200);
+}
+
+/* ============================================
+   ITEM ICON
+   ============================================ */
+
+.itemIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50%;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.itemComplete .itemIcon {
+  color: var(--mint-500);
+  background: rgba(103, 200, 158, 0.2);
+}
+
+.itemPending .itemIcon {
+  color: var(--text-tertiary);
+  background: var(--bg-paper);
+}
+
+.itemOptional .itemIcon {
+  color: var(--text-tertiary);
+  background: var(--bg-paper);
+}
+
+/* ============================================
+   ITEM CONTENT
+   ============================================ */
+
+.itemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemLabel {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.optionalBadge {
+  font-size: 10px;
+  font-weight: var(--weight-regular);
+  color: var(--text-tertiary);
+  background: var(--bg-paper);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.itemValue {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.itemPlaceholder {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-tertiary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.listItem {
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.4;
+  padding-left: var(--space-sm);
+}
+
+.moreItems {
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  color: var(--text-tertiary);
+  padding-left: var(--space-sm);
+  font-style: italic;
+}
+
+/* ============================================
+   STATUS
+   ============================================ */
+
+.status {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  animation: fadeIn var(--duration-base) var(--ease-out);
+}
+
+.statusComplete {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--mint-500);
+  background: rgba(103, 200, 158, 0.1);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--mint-500);
+}
+
+.statusPending {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+}
+
+.statusIcon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-md);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .progressBadge {
+    align-self: flex-end;
+  }
+
+  .item {
+    padding: var(--space-sm);
+  }
+
+  .itemIcon {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+
+  .statusComplete,
+  .statusPending {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .statusIcon {
+    font-size: 24px;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .itemIcon {
+    transition: none;
+  }
+
+  .status {
+    animation: none;
+  }
+
+  .progressRing svg circle {
+    transition: none !important;
+  }
+}
