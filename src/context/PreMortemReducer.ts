@@ -5,6 +5,8 @@ import {
   Scenario,
   RootCause,
   MitigationStrategy,
+  AIModel,
+  AI_MODELS,
 } from '@/types/premortem';
 
 export interface AppState {
@@ -38,6 +40,7 @@ export type Action =
   | { type: 'LOAD_ANALYSIS'; payload: PreMortemAnalysis }
   | { type: 'UPDATE_DECISION_INPUT'; payload: Decision }
   | { type: 'ADD_USER_THOUGHTS'; payload: string }
+  | { type: 'SET_AI_MODEL'; payload: AIModel }
   | { type: 'SET_AI_SCENARIOS'; payload: Scenario[] }
   | { type: 'ADD_SCENARIO'; payload: Scenario }
   | { type: 'EDIT_SCENARIO'; payload: { id: string; updates: Partial<Scenario> } }
@@ -84,6 +87,7 @@ export function preMortemReducer(state: AppState, action: Action): AppState {
         adjustedConfidence: 50,
         completionStatus: 'in-progress',
         currentStep: 1,
+        aiModel: AI_MODELS.anthropic[0], // Default to Claude Sonnet 4
       };
 
       return {
@@ -122,6 +126,19 @@ export function preMortemReducer(state: AppState, action: Action): AppState {
         currentAnalysis: {
           ...state.currentAnalysis,
           userInitialThoughts: action.payload,
+          updatedAt: new Date(),
+        },
+      };
+    }
+
+    case 'SET_AI_MODEL': {
+      if (!state.currentAnalysis) return state;
+
+      return {
+        ...state,
+        currentAnalysis: {
+          ...state.currentAnalysis,
+          aiModel: action.payload,
           updatedAt: new Date(),
         },
       };

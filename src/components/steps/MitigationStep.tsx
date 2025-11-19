@@ -6,11 +6,12 @@ import { Card } from '@/components/common/Card';
 import { Input } from '@/components/common/Input';
 import { Textarea } from '@/components/common/Textarea';
 import { Select } from '@/components/common/Select';
-import { Scenario, MitigationStrategy } from '@/types/premortem';
-import { generateMitigationStrategies } from '@/services/claudeAPI';
+import { Scenario, MitigationStrategy, AIModel } from '@/types/premortem';
+import { generateMitigationStrategies } from '@/services/aiService';
 
 export interface MitigationStepProps {
   scenarios: Scenario[];
+  aiModel: AIModel;
   mitigationStrategies: MitigationStrategy[];
   onUpdateStrategies: (strategies: MitigationStrategy[]) => void;
   onNext: () => void;
@@ -20,6 +21,7 @@ export interface MitigationStepProps {
 
 export function MitigationStep({
   scenarios,
+  aiModel,
   mitigationStrategies,
   onUpdateStrategies,
   onNext,
@@ -51,7 +53,8 @@ export function MitigationStep({
         rootCause,
         explanation,
         scenarioContext,
-        'Decision to be made'
+        'Decision to be made',
+        aiModel
       );
 
       const newStrategies: MitigationStrategy[] = strategyResponses.map((sr) => ({

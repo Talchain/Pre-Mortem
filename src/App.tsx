@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { usePreMortem } from '@/context/PreMortemContext';
 import { ProgressIndicator } from '@/components/common/ProgressIndicator';
+import { ModelSelector } from '@/components/common/ModelSelector';
 import { WelcomeStep } from '@/components/steps/WelcomeStep';
 import { DecisionInputStep } from '@/components/steps/DecisionInputStep';
 import { TemporalProjectionStep } from '@/components/steps/TemporalProjectionStep';
@@ -9,6 +10,7 @@ import { RootCauseStep } from '@/components/steps/RootCauseStep';
 import { MitigationStep } from '@/components/steps/MitigationStep';
 import { RecalibrationStep } from '@/components/steps/RecalibrationStep';
 import { SummaryStep } from '@/components/steps/SummaryStep';
+import { AIModel, AI_MODELS } from '@/types/premortem';
 
 const STEP_LABELS = [
   'Welcome',
@@ -97,6 +99,10 @@ function App() {
     });
   };
 
+  const handleModelChange = (model: AIModel) => {
+    dispatch({ type: 'SET_AI_MODEL', payload: model });
+  };
+
   if (!state.currentAnalysis) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -139,6 +145,7 @@ function App() {
             decision={state.currentAnalysis!.decision}
             userThoughts={state.currentAnalysis!.userInitialThoughts || ''}
             scenarios={state.currentAnalysis!.scenarios}
+            aiModel={state.currentAnalysis!.aiModel || AI_MODELS.anthropic[0]}
             onUpdateScenarios={handleUpdateScenarios}
             onNext={handleAdvanceStep}
             isLoading={state.aiCallsInProgress.scenarios}
@@ -150,6 +157,7 @@ function App() {
         return (
           <RootCauseStep
             scenarios={state.currentAnalysis!.scenarios}
+            aiModel={state.currentAnalysis!.aiModel || AI_MODELS.anthropic[0]}
             onUpdateScenarios={handleUpdateScenarios}
             onNext={handleAdvanceStep}
             aiCallsInProgress={state.aiCallsInProgress.rootCauses}
@@ -161,6 +169,7 @@ function App() {
         return (
           <MitigationStep
             scenarios={state.currentAnalysis!.scenarios}
+            aiModel={state.currentAnalysis!.aiModel || AI_MODELS.anthropic[0]}
             mitigationStrategies={state.currentAnalysis!.mitigationStrategies}
             onUpdateStrategies={handleUpdateStrategies}
             onNext={handleAdvanceStep}
@@ -212,16 +221,24 @@ function App() {
               </div>
             </div>
 
-            {state.currentAnalysis && state.currentStep > 1 && (
-              <div className="text-right">
-                <p className="text-sm font-medium text-neutral-900">
-                  {state.currentAnalysis.decision.title || 'Untitled Decision'}
-                </p>
-                <p className="text-xs text-neutral-500">
-                  Step {state.currentStep} of 8
-                </p>
-              </div>
-            )}
+            <div className="flex items-center gap-4">
+              {/* AI Model Selector */}
+              <ModelSelector
+                selectedModel={state.currentAnalysis?.aiModel || AI_MODELS.anthropic[0]}
+                onModelChange={handleModelChange}
+              />
+
+              {state.currentAnalysis && state.currentStep > 1 && (
+                <div className="text-right">
+                  <p className="text-sm font-medium text-neutral-900">
+                    {state.currentAnalysis.decision.title || 'Untitled Decision'}
+                  </p>
+                  <p className="text-xs text-neutral-500">
+                    Step {state.currentStep} of 8
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Progress Indicator */}

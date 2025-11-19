@@ -27,6 +27,46 @@ export type MitigationTiming =
 
 export type CompletionStatus = 'in-progress' | 'completed';
 
+export type AIProvider = 'anthropic' | 'openai';
+
+export interface AIModel {
+  provider: AIProvider;
+  modelId: string;
+  displayName: string;
+}
+
+export const AI_MODELS: Record<AIProvider, AIModel[]> = {
+  anthropic: [
+    {
+      provider: 'anthropic',
+      modelId: 'claude-sonnet-4-20250514',
+      displayName: 'Claude Sonnet 4',
+    },
+    {
+      provider: 'anthropic',
+      modelId: 'claude-3-5-sonnet-20241022',
+      displayName: 'Claude 3.5 Sonnet',
+    },
+  ],
+  openai: [
+    {
+      provider: 'openai',
+      modelId: 'gpt-4o',
+      displayName: 'GPT-4o',
+    },
+    {
+      provider: 'openai',
+      modelId: 'gpt-4-turbo',
+      displayName: 'GPT-4 Turbo',
+    },
+    {
+      provider: 'openai',
+      modelId: 'gpt-3.5-turbo',
+      displayName: 'GPT-3.5 Turbo',
+    },
+  ],
+};
+
 export interface RootCause {
   id: string;
   cause: string;
@@ -88,4 +128,7 @@ export interface PreMortemAnalysis {
   completionStatus: CompletionStatus;
   currentStep: number; // 1-8
   exportedAt?: Date;
+
+  // AI Model Selection
+  aiModel?: AIModel; // Selected AI model for this analysis
 }

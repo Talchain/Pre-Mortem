@@ -5,13 +5,14 @@ import { Button } from '@/components/common/Button';
 import { Card } from '@/components/common/Card';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { ScenarioCard } from '@/components/features/ScenarioCard';
-import { Scenario, Decision } from '@/types/premortem';
-import { generateScenarios } from '@/services/claudeAPI';
+import { Scenario, Decision, AIModel } from '@/types/premortem';
+import { generateScenarios } from '@/services/aiService';
 
 export interface ScenariosStepProps {
   decision: Decision;
   userThoughts: string;
   scenarios: Scenario[];
+  aiModel: AIModel;
   onUpdateScenarios: (scenarios: Scenario[]) => void;
   onNext: () => void;
   isLoading: boolean;
@@ -22,6 +23,7 @@ export function ScenariosStep({
   decision,
   userThoughts,
   scenarios,
+  aiModel,
   onUpdateScenarios,
   onNext,
   isLoading,
@@ -43,15 +45,18 @@ export function ScenariosStep({
     onSetLoading(true);
 
     try {
-      const scenarioResponses = await generateScenarios({
-        decisionTitle: decision.title,
-        decisionDescription: decision.description,
-        decisionType: decision.type,
-        timeline: decision.timeline,
-        successCriteria: decision.successCriteria,
-        context: decision.context,
-        userThoughts,
-      });
+      const scenarioResponses = await generateScenarios(
+        {
+          decisionTitle: decision.title,
+          decisionDescription: decision.description,
+          decisionType: decision.type,
+          timeline: decision.timeline,
+          successCriteria: decision.successCriteria,
+          context: decision.context,
+          userThoughts,
+        },
+        aiModel
+      );
 
       const newScenarios: Scenario[] = scenarioResponses.map((response) => ({
         id: uuidv4(),

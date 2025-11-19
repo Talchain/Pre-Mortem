@@ -6,7 +6,8 @@ Science-powered pre-mortem analysis tool that helps individuals and teams identi
 
 ## Features
 
-- **AI-Generated Failure Scenarios**: Claude AI analyzes your decision context to identify 5-8 plausible failure scenarios
+- **Multiple AI Models**: Choose between Anthropic Claude (Sonnet 4, 3.5 Sonnet) or OpenAI GPT (GPT-4o, GPT-4 Turbo, GPT-3.5 Turbo)
+- **AI-Generated Failure Scenarios**: AI analyzes your decision context to identify 5-8 plausible failure scenarios
 - **Root Cause Analysis**: Drill into underlying factors that could lead to failure
 - **Mitigation Strategy Development**: Generate actionable preventive strategies with effort and impact assessments
 - **Confidence Recalibration**: Track how your confidence changes as you uncover blind spots
@@ -18,7 +19,8 @@ Science-powered pre-mortem analysis tool that helps individuals and teams identi
 - **React 18** + **TypeScript** - Modern, type-safe component architecture
 - **Tailwind CSS** - Utility-first styling with Olumi brand colors
 - **Vite** - Lightning-fast build tool and dev server
-- **Claude API (Anthropic)** - AI-powered scenario and strategy generation
+- **Anthropic Claude API** - Claude Sonnet 4 and 3.5 Sonnet models
+- **OpenAI API** - GPT-4o, GPT-4 Turbo, and GPT-3.5 Turbo models
 - **jsPDF** - Client-side PDF generation
 
 ## Getting Started
@@ -26,7 +28,9 @@ Science-powered pre-mortem analysis tool that helps individuals and teams identi
 ### Prerequisites
 
 - **Node.js 18+**
-- **Anthropic API key** - Get yours at [https://console.anthropic.com/](https://console.anthropic.com/)
+- **AI Provider API Key** (choose one or both):
+  - **Anthropic API key** - Get yours at [https://console.anthropic.com/](https://console.anthropic.com/)
+  - **OpenAI API key** - Get yours at [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
 
 ### Installation
 
@@ -46,10 +50,16 @@ npm install
    cp .env.example .env.local
    ```
 
-2. Add your Anthropic API key to `.env.local`:
+2. Add your AI provider API key(s) to `.env.local`:
    ```
-   VITE_ANTHROPIC_API_KEY=your_api_key_here
+   # Anthropic (for Claude models)
+   VITE_ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+   # OpenAI (for GPT models)
+   VITE_OPENAI_API_KEY=your_openai_api_key_here
    ```
+
+   **Note**: You only need to set the API key for the provider you plan to use. The app will work with either provider.
 
 ### Development
 
@@ -72,6 +82,32 @@ npm run preview
 ```
 
 The build output will be in the `dist/` directory.
+
+## Using AI Models
+
+### Selecting Your AI Provider
+
+The tool supports multiple AI providers and models. You can switch between them at any time using the model selector in the app header.
+
+**Available Models:**
+
+**Anthropic Claude:**
+- Claude Sonnet 4 (Recommended) - Most capable, best reasoning
+- Claude 3.5 Sonnet - Fast and capable
+
+**OpenAI GPT:**
+- GPT-4o - Powerful multimodal model
+- GPT-4 Turbo - Fast GPT-4 variant
+- GPT-3.5 Turbo - Cost-effective option
+
+### Switching Models
+
+1. Look for the AI model selector in the top-right corner of the app header
+2. Click the dropdown to see all available models
+3. Select your preferred model
+4. Your choice is saved with your analysis and persists across sessions
+
+**Note**: Different models may produce varying results in terms of creativity, depth, and specificity of failure scenarios.
 
 ## Project Structure
 

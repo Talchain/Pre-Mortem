@@ -4,11 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { Button } from '@/components/common/Button';
 import { Card } from '@/components/common/Card';
 import { Input } from '@/components/common/Input';
-import { Scenario, RootCause } from '@/types/premortem';
-import { generateRootCauses } from '@/services/claudeAPI';
+import { Scenario, RootCause, AIModel } from '@/types/premortem';
+import { generateRootCauses } from '@/services/aiService';
 
 export interface RootCauseStepProps {
   scenarios: Scenario[];
+  aiModel: AIModel;
   onUpdateScenarios: (scenarios: Scenario[]) => void;
   onNext: () => void;
   aiCallsInProgress: Record<string, boolean>;
@@ -17,6 +18,7 @@ export interface RootCauseStepProps {
 
 export function RootCauseStep({
   scenarios,
+  aiModel,
   onUpdateScenarios,
   onNext,
   aiCallsInProgress,
@@ -45,7 +47,8 @@ export function RootCauseStep({
       const rootCauseResponses = await generateRootCauses(
         scenario.title,
         scenario.description,
-        `${scenario.category} failure related to the decision`
+        `${scenario.category} failure related to the decision`,
+        aiModel
       );
 
       const newRootCauses: RootCause[] = rootCauseResponses.map((rc) => ({

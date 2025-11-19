@@ -3,8 +3,8 @@ import { Download, Mail, Share2, CheckCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 import { Card } from '@/components/common/Card';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { PreMortemAnalysis } from '@/types/premortem';
-import { generateExecutiveSummary } from '@/services/claudeAPI';
+import { PreMortemAnalysis, AI_MODELS } from '@/types/premortem';
+import { generateExecutiveSummary } from '@/services/aiService';
 import { exportToPDF } from '@/services/pdfExport';
 
 export interface SummaryStepProps {
@@ -49,22 +49,25 @@ export function SummaryStep({ analysis, onMarkExported }: SummaryStepProps) {
             })
             .slice(0, 3);
 
-      const summaryText = await generateExecutiveSummary({
-        decisionTitle: analysis.decision.title,
-        decisionDescription: analysis.decision.description,
-        originalConfidence: analysis.decision.initialConfidence,
-        adjustedConfidence: analysis.adjustedConfidence,
-        topScenarios: topScenarios.map((s) => ({
-          title: s.title,
-          description: s.description,
-        })),
-        priorityActions: priorityStrategies.map((s) => ({
-          title: s.title,
-          description: s.description,
-          owner: s.owner,
-        })),
-        keyInsight: analysis.keyInsight,
-      });
+      const summaryText = await generateExecutiveSummary(
+        {
+          decisionTitle: analysis.decision.title,
+          decisionDescription: analysis.decision.description,
+          originalConfidence: analysis.decision.initialConfidence,
+          adjustedConfidence: analysis.adjustedConfidence,
+          topScenarios: topScenarios.map((s) => ({
+            title: s.title,
+            description: s.description,
+          })),
+          priorityActions: priorityStrategies.map((s) => ({
+            title: s.title,
+            description: s.description,
+            owner: s.owner,
+          })),
+          keyInsight: analysis.keyInsight,
+        },
+        analysis.aiModel || AI_MODELS.anthropic[0]
+      );
 
       setSummary(summaryText);
     } catch (error) {
