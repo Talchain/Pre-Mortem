@@ -1,0 +1,443 @@
+/**
+ * ScenarioComparisonView Styles
+ * Risk matrix and scenario prioritization
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: var(--space-xs) 0 0 0;
+}
+
+.sortControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.sortLabel {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  font-weight: var(--weight-semibold);
+}
+
+.sortSelect {
+  padding: var(--space-xs) var(--space-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-paper);
+  font-family: inherit;
+  font-size: var(--text-label);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color var(--duration-fast);
+}
+
+.sortSelect:hover {
+  border-color: var(--color-primary);
+}
+
+.sortSelect:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Matrix Section */
+.matrixSection {
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.sectionTitle {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.matrixContainer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.yAxisLabel {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  padding-right: var(--space-sm);
+}
+
+.matrix {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.matrixRow {
+  display: grid;
+  grid-template-columns: 80px repeat(3, 1fr);
+  gap: var(--space-xs);
+  align-items: stretch;
+}
+
+.matrixLabel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--space-md);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+}
+
+.matrixCell {
+  min-height: 100px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid transparent;
+  transition: border-color var(--duration-fast), transform var(--duration-fast);
+}
+
+.matrixCell:hover {
+  transform: scale(1.02);
+  border-color: var(--color-primary);
+}
+
+/* Risk Level Colors */
+.criticalRisk {
+  background: rgba(234, 123, 75, 0.15);
+  border-color: #EA7B4B;
+}
+
+.highRisk {
+  background: rgba(245, 196, 51, 0.15);
+  border-color: #F5C433;
+}
+
+.mediumRisk {
+  background: rgba(99, 173, 207, 0.15);
+  border-color: #63ADCF;
+}
+
+.lowRisk {
+  background: rgba(103, 200, 158, 0.15);
+  border-color: #67C89E;
+}
+
+.emptyCell {
+  font-size: var(--text-heading-sm);
+  color: var(--text-muted);
+}
+
+.cellScenarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  width: 100%;
+  justify-content: center;
+}
+
+.scenarioDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--ink-900);
+  border: 2px solid var(--ink-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.scenarioDot:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dotNumber {
+  user-select: none;
+}
+
+/* X-axis */
+.xAxisLabels {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 80px repeat(3, 1fr);
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
+.xAxisLabel {
+  text-align: center;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+}
+
+.xAxisTitle {
+  grid-column: 2;
+  grid-row: 3;
+  text-align: center;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  padding-top: var(--space-sm);
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+
+.legendBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid currentColor;
+}
+
+/* Prioritized List */
+.listSection {
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.scenarioList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.scenarioCard {
+  background: var(--bg-subtle);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.scenarioCard:hover {
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-2);
+}
+
+.scenarioHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.scenarioRank {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--ink-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+}
+
+.scenarioTitle {
+  flex: 1;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.priorityBadge {
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.5px;
+}
+
+.priorityBadge.critical {
+  background: rgba(234, 123, 75, 0.15);
+  color: #D96A3C;
+}
+
+.priorityBadge.high {
+  background: rgba(245, 196, 51, 0.15);
+  color: #E8B61F;
+}
+
+.priorityBadge.medium {
+  background: rgba(99, 173, 207, 0.15);
+  color: #5C9BB8;
+}
+
+.priorityBadge.low {
+  background: rgba(103, 200, 158, 0.15);
+  color: #62B28F;
+}
+
+/* Metrics */
+.scenarioMetrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-label);
+}
+
+.metricLabel {
+  color: var(--text-secondary);
+  font-weight: var(--weight-semibold);
+}
+
+.metricBar {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-paper);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  min-width: 60px;
+}
+
+.metricFill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width var(--duration-base);
+}
+
+.metricValue {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+  min-width: 40px;
+}
+
+.impactBadge {
+  padding: 2px 8px;
+  background: var(--bg-paper);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.riskScore {
+  padding: 2px 8px;
+  background: var(--color-primary);
+  color: var(--ink-900);
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.scenarioPreview {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+}
+
+.scenarioFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+
+.rootCauseCount {
+  font-weight: var(--weight-semibold);
+}
+
+.expandHint {
+  color: var(--color-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .matrixRow {
+    grid-template-columns: 60px repeat(3, 1fr);
+  }
+
+  .xAxisLabels {
+    grid-template-columns: 60px repeat(3, 1fr);
+  }
+
+  .matrixCell {
+    min-height: 80px;
+  }
+
+  .scenarioDot {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .scenarioMetrics {
+    grid-template-columns: 1fr;
+  }
+}

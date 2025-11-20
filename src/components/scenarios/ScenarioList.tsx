@@ -8,13 +8,16 @@ import { useState } from 'react';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { FailureScenario, ImpactLevel } from '@/types/sharedModels';
 import { ScenarioCard } from './ScenarioCard';
+import { ScenarioComparisonView } from './ScenarioComparisonView';
 import styles from './ScenarioList.module.css';
 
 type FilterType = 'all' | 'high-risk' | 'medium-risk' | 'low-risk';
+type ViewMode = 'list' | 'comparison';
 
 export function ScenarioList() {
   const { state, sendMessage } = useDecisionSession();
   const [filter, setFilter] = useState<FilterType>('all');
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
 
   const scenarios = state.session?.premortem?.failure_scenarios || [];
 
@@ -91,83 +94,125 @@ export function ScenarioList() {
           </p>
         </div>
 
-        {/* Risk Summary */}
-        <div className={styles.riskSummary}>
-          <div className={`${styles.riskBadge} ${styles.riskHigh}`}>
-            {counts.high} High Risk
+        <div className={styles.headerActions}>
+          {/* View Toggle */}
+          <div className={styles.viewToggle}>
+            <button
+              className={`${styles.viewButton} ${viewMode === 'list' ? styles.viewButtonActive : ''}`}
+              onClick={() => setViewMode('list')}
+              title="List view"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M2 3h12M2 8h12M2 13h12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span>List</span>
+            </button>
+            <button
+              className={`${styles.viewButton} ${viewMode === 'comparison' ? styles.viewButtonActive : ''}`}
+              onClick={() => setViewMode('comparison')}
+              title="Comparison view"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="2" width="5" height="5" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="9" y="2" width="5" height="5" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="2" y="9" width="5" height="5" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="9" y="9" width="5" height="5" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+              <span>Matrix</span>
+            </button>
           </div>
-          <div className={`${styles.riskBadge} ${styles.riskMedium}`}>
-            {counts.medium} Medium
+
+          {/* Risk Summary */}
+          <div className={styles.riskSummary}>
+            <div className={`${styles.riskBadge} ${styles.riskHigh}`}>
+              {counts.high} High Risk
+            </div>
+            <div className={`${styles.riskBadge} ${styles.riskMedium}`}>
+              {counts.medium} Medium
+            </div>
+            <div className={`${styles.riskBadge} ${styles.riskLow}`}>{counts.low} Low</div>
           </div>
-          <div className={`${styles.riskBadge} ${styles.riskLow}`}>{counts.low} Low</div>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className={styles.filters}>
-        <button
-          className={`${styles.filterButton} ${filter === 'all' ? styles.filterActive : ''}`}
-          onClick={() => setFilter('all')}
-        >
-          All ({scenarios.length})
-        </button>
-        <button
-          className={`${styles.filterButton} ${filter === 'high-risk' ? styles.filterActive : ''}`}
-          onClick={() => setFilter('high-risk')}
-        >
-          High Risk ({counts.high})
-        </button>
-        <button
-          className={`${styles.filterButton} ${filter === 'medium-risk' ? styles.filterActive : ''}`}
-          onClick={() => setFilter('medium-risk')}
-        >
-          Medium ({counts.medium})
-        </button>
-        <button
-          className={`${styles.filterButton} ${filter === 'low-risk' ? styles.filterActive : ''}`}
-          onClick={() => setFilter('low-risk')}
-        >
-          Low ({counts.low})
-        </button>
-      </div>
+      {/* List View */}
+      {viewMode === 'list' && (
+        <>
+          {/* Filters */}
+          <div className={styles.filters}>
+            <button
+              className={`${styles.filterButton} ${filter === 'all' ? styles.filterActive : ''}`}
+              onClick={() => setFilter('all')}
+            >
+              All ({scenarios.length})
+            </button>
+            <button
+              className={`${styles.filterButton} ${filter === 'high-risk' ? styles.filterActive : ''}`}
+              onClick={() => setFilter('high-risk')}
+            >
+              High Risk ({counts.high})
+            </button>
+            <button
+              className={`${styles.filterButton} ${filter === 'medium-risk' ? styles.filterActive : ''}`}
+              onClick={() => setFilter('medium-risk')}
+            >
+              Medium ({counts.medium})
+            </button>
+            <button
+              className={`${styles.filterButton} ${filter === 'low-risk' ? styles.filterActive : ''}`}
+              onClick={() => setFilter('low-risk')}
+            >
+              Low ({counts.low})
+            </button>
+          </div>
 
-      {/* Scenarios */}
-      <div className={styles.scenarios}>
-        {sortedScenarios.map((scenario) => (
-          <ScenarioCard
-            key={scenario.id}
-            scenario={scenario}
-            onDiscuss={handleDiscussScenario}
-          />
-        ))}
-      </div>
+          {/* Scenarios */}
+          <div className={styles.scenarios}>
+            {sortedScenarios.map((scenario) => (
+              <ScenarioCard
+                key={scenario.id}
+                scenario={scenario}
+                onDiscuss={handleDiscussScenario}
+              />
+            ))}
+          </div>
 
-      {/* Actions */}
-      <div className={styles.actions}>
-        <button
-          className={styles.actionButton}
-          onClick={() => sendMessage('Generate more failure scenarios')}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M8 3v10M3 8h10"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-          Generate More Scenarios
-        </button>
+          {/* Actions */}
+          <div className={styles.actions}>
+            <button
+              className={styles.actionButton}
+              onClick={() => sendMessage('Generate more failure scenarios')}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M8 3v10M3 8h10"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+              Generate More Scenarios
+            </button>
 
-        <button
-          className={styles.actionButton}
-          onClick={() =>
-            sendMessage('What are the top 3 scenarios I should focus on mitigating first?')
-          }
-        >
-          Get Mitigation Recommendations
-        </button>
-      </div>
+            <button
+              className={styles.actionButton}
+              onClick={() =>
+                sendMessage('What are the top 3 scenarios I should focus on mitigating first?')
+              }
+            >
+              Get Mitigation Recommendations
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* Comparison View */}
+      {viewMode === 'comparison' && <ScenarioComparisonView scenarios={scenarios} />}
     </div>
   );
 }

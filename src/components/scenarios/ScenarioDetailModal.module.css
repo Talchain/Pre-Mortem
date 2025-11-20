@@ -1,0 +1,451 @@
+/**
+ * ScenarioDetailModal Styles
+ * Deep-dive view for individual failure scenarios
+ */
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn var(--duration-fast);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.modal {
+  background: var(--bg-paper);
+  border-radius: var(--radius-lg);
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-3);
+  animation: slideUp var(--duration-base);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--space-xl);
+  border-bottom: 1px solid var(--border-default);
+  gap: var(--space-lg);
+}
+
+.headerContent {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  flex: 1;
+}
+
+.impactIndicator {
+  flex-shrink: 0;
+}
+
+.impactEmoji {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.title {
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.titleInput {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--text-heading-md);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+
+.titleInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--bg-paper);
+}
+
+.metaTags {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 4px 8px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.closeButton {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast);
+}
+
+.closeButton:hover {
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+}
+
+/* Content */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-xl);
+}
+
+.section {
+  margin-bottom: var(--space-xl);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+}
+
+/* Risk Assessment Grid */
+.riskGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.riskCard {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.riskLabel {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.impactSelect {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--bg-paper);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  cursor: pointer;
+  margin-bottom: var(--space-xs);
+}
+
+.impactSelect:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.impactValue {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-xs);
+}
+
+.riskDescription {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Likelihood Controls */
+.likelihoodControl {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.likelihoodSlider {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-paper);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.likelihoodSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 2px solid var(--ink-900);
+}
+
+.likelihoodSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 2px solid var(--ink-900);
+}
+
+.likelihoodValue {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+}
+
+.likelihoodBar {
+  height: 8px;
+  background: var(--bg-paper);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: var(--space-sm);
+}
+
+.likelihoodFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition: width var(--duration-base);
+}
+
+.riskScoreValue {
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+/* Description */
+.description {
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.descriptionTextarea {
+  width: 100%;
+  min-height: 100px;
+  padding: var(--space-md);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  font-family: inherit;
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.descriptionTextarea:focus {
+  outline: none;
+  background: var(--bg-paper);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.listItem {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.listIcon {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+/* Factor Tags */
+.factorTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.factorTag {
+  padding: 6px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+}
+
+/* AI Reasoning */
+.aiReasoning {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.aiIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  border-top: 1px solid var(--border-default);
+}
+
+.cancelButton,
+.saveButton,
+.closeFooterButton,
+.editButton {
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.cancelButton,
+.closeFooterButton {
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+.cancelButton:hover,
+.closeFooterButton:hover {
+  background: var(--bg-paper);
+  border-color: var(--text-secondary);
+}
+
+.saveButton,
+.editButton {
+  background: var(--color-primary);
+  color: var(--ink-900);
+}
+
+.saveButton:hover,
+.editButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .header {
+    padding: var(--space-lg);
+  }
+
+  .content {
+    padding: var(--space-lg);
+  }
+
+  .footer {
+    padding: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .riskGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: var(--text-heading-sm);
+  }
+
+  .titleInput {
+    font-size: var(--text-heading-sm);
+  }
+}

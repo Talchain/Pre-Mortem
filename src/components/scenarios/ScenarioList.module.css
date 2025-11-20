@@ -42,6 +42,65 @@
   line-height: 1.5;
 }
 
+.headerActions {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   VIEW TOGGLE
+   ============================================ */
+
+.viewToggle {
+  display: flex;
+  gap: var(--space-xs);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs);
+}
+
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-primary);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.viewButton:hover {
+  background: var(--bg-paper);
+  color: var(--text-primary);
+}
+
+.viewButtonActive {
+  color: var(--ink-900);
+  background: var(--sun-500);
+  border-color: var(--sun-600);
+}
+
+.viewButtonActive:hover {
+  background: var(--sun-600);
+  color: var(--ink-900);
+}
+
+.viewButton:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
 /* ============================================
    RISK SUMMARY
    ============================================ */
@@ -268,8 +327,24 @@
     font-size: var(--text-heading-md);
   }
 
+  .headerActions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .viewToggle {
+    order: -1;
+  }
+
+  .viewButton {
+    flex: 1;
+    justify-content: center;
+  }
+
   .riskSummary {
     gap: var(--space-sm);
+    justify-content: center;
   }
 
   .riskBadge {
@@ -301,6 +376,7 @@
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
+  .viewButton,
   .filterButton,
   .actionButton,
   .emptyButton {
