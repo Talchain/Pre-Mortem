@@ -1,0 +1,219 @@
+/**
+ * InsightsPanel Styles
+ * Pattern analysis and insights
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Section */
+.section {
+  padding: var(--space-xl);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+.sectionTitle {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.sectionIcon {
+  font-size: 20px;
+}
+
+.sectionDescription {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+  line-height: 1.6;
+}
+
+/* List */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+}
+
+.listItemRank {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--ink-900);
+  border-radius: 50%;
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+}
+
+.listItemContent {
+  flex: 1;
+}
+
+.listItemTitle {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.listItemMeta {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.listItemBar {
+  flex-shrink: 0;
+  width: 80px;
+  height: 6px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.listItemBarFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  transition: width var(--duration-base);
+}
+
+.listItemValue {
+  flex-shrink: 0;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Risk Heatmap */
+.heatmap {
+  display: grid;
+  grid-template-columns: auto repeat(4, 1fr);
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.heatmapLabel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-sm);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+}
+
+.heatmapCell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  transition: all var(--duration-fast);
+}
+
+.heatmapCell:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-1);
+  z-index: 1;
+}
+
+.heatmapCellLow {
+  background: rgba(103, 200, 158, 0.2);
+  color: var(--mint-700);
+}
+
+.heatmapCellMedium {
+  background: rgba(245, 196, 51, 0.3);
+  color: var(--sun-700);
+}
+
+.heatmapCellHigh {
+  background: rgba(234, 123, 75, 0.4);
+  color: var(--carrot-700);
+}
+
+.heatmapCellCritical {
+  background: rgba(234, 123, 75, 0.6);
+  color: var(--carrot-900);
+}
+
+.heatmapColumnLabel {
+  grid-column: span 1;
+  padding: var(--space-sm);
+  text-align: center;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+}
+
+/* Empty State */
+.empty {
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .listItemBar {
+    display: none;
+  }
+
+  .heatmap {
+    grid-template-columns: auto repeat(4, minmax(50px, 1fr));
+    gap: 4px;
+  }
+
+  .heatmapLabel,
+  .heatmapColumnLabel {
+    font-size: 10px;
+    padding: var(--space-xs);
+  }
+
+  .heatmapCell {
+    font-size: var(--text-label);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .listItemBarFill,
+  .heatmapCell {
+    transition: none;
+  }
+
+  .heatmapCell:hover {
+    transform: none;
+  }
+}

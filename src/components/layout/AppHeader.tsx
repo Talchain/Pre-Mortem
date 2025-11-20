@@ -9,9 +9,11 @@ import styles from './AppHeader.module.css';
 
 interface AppHeaderProps {
   onHelpClick?: () => void;
+  onPortfolioClick?: () => void;
+  currentView?: 'main' | 'portfolio';
 }
 
-export function AppHeader({ onHelpClick }: AppHeaderProps) {
+export function AppHeader({ onHelpClick, onPortfolioClick, currentView = 'main' }: AppHeaderProps) {
   const [showVersionInfo, setShowVersionInfo] = useState(false);
   const version = import.meta.env.VITE_APP_VERSION || '2.0.0';
 
@@ -31,6 +33,20 @@ export function AppHeader({ onHelpClick }: AppHeaderProps) {
 
         {/* Actions */}
         <div className={styles.actions}>
+          {/* Portfolio Button */}
+          {onPortfolioClick && (
+            <button
+              className={`${styles.helpButton} ${currentView === 'portfolio' ? styles.activeButton : ''}`}
+              onClick={onPortfolioClick}
+              aria-label="View portfolio"
+            >
+              <span className={styles.helpIcon}>📊</span>
+              <span className={styles.helpText}>
+                {currentView === 'portfolio' ? 'Back to Home' : 'Portfolio'}
+              </span>
+            </button>
+          )}
+
           {/* Version Badge */}
           <button
             className={styles.versionBadge}

@@ -1,0 +1,188 @@
+/**
+ * PortfolioOverview Styles
+ * Overview stats and cards
+ */
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.statCard {
+  padding: var(--space-lg);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+.statLabel {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.statValue {
+  font-size: var(--text-heading-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.statSubtext {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: var(--space-xs) 0 0 0;
+}
+
+/* Outcome Distribution */
+.outcomes {
+  padding: var(--space-xl);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.outcomesTitle {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.outcomesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+}
+
+.outcomeCard {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+}
+
+.outcomeIcon {
+  font-size: 32px;
+  margin-bottom: var(--space-sm);
+}
+
+.outcomeValue {
+  font-size: var(--text-heading-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.outcomeLabel {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.outcomePercentage {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: var(--space-xs) 0 0 0;
+}
+
+/* Recent Decisions */
+.recent {
+  padding: var(--space-xl);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+.recentTitle {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.recentList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.recentItem {
+  padding: var(--space-md);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.recentItem:hover {
+  background: var(--border-default);
+  transform: translateX(4px);
+}
+
+.recentItemTitle {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.recentItemMeta {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.recentItemBadge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  margin-left: var(--space-sm);
+}
+
+.badgeSuccess {
+  background: var(--mint-500);
+  color: var(--ink-900);
+}
+
+.badgeFailure {
+  background: var(--carrot-500);
+  color: var(--ink-900);
+}
+
+.badgeMixed {
+  background: var(--sun-500);
+  color: var(--ink-900);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .outcomesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .recentItem {
+    transition: none;
+  }
+
+  .recentItem:hover {
+    transform: none;
+  }
+}

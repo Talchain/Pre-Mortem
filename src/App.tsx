@@ -23,6 +23,7 @@ import { DegradedBanner } from '@/components/common/DegradedBanner';
 import { CompletenessWidget } from '@/components/common/CompletenessWidget';
 import { ExportModal } from '@/components/export/ExportModal';
 import { TemplateBrowser } from '@/components/templates/TemplateBrowser';
+import { PortfolioDashboard } from '@/components/portfolio/PortfolioDashboard';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { PreMortemTemplate } from '@/types/premortem.v1';
 import { applyTemplate } from '@/hooks/useTemplateApplication';
@@ -36,6 +37,7 @@ function AppContent() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [showTemplateBrowser, setShowTemplateBrowser] = useState(true);
+  const [currentView, setCurrentView] = useState<'main' | 'portfolio'>('main');
 
   const hasSession = !!session;
   const hasScenarios = (session?.premortem?.failure_scenarios.length || 0) > 0;
@@ -55,16 +57,25 @@ function AppContent() {
     const newSession = applyTemplate(template, {});
     dispatch({ type: 'LOAD_SESSION', payload: newSession });
     setShowTemplateBrowser(false);
+    setCurrentView('main');
   };
 
   const handleSkipTemplate = () => {
     setShowTemplateBrowser(false);
   };
 
+  const handleTogglePortfolio = () => {
+    setCurrentView(currentView === 'main' ? 'portfolio' : 'main');
+  };
+
   return (
     <div className={styles.app}>
       {/* App Header */}
-      <AppHeader onHelpClick={() => setIsHelpOpen(true)} />
+      <AppHeader
+        onHelpClick={() => setIsHelpOpen(true)}
+        onPortfolioClick={handleTogglePortfolio}
+        currentView={currentView}
+      />
 
       {/* Model Selector Bar */}
       {selectedModel && (
@@ -102,9 +113,12 @@ function AppContent() {
 
       {/* Main Content */}
       <main className={styles.main}>
-        <div className={styles.content}>
-          {/* Degraded Mode Banner */}
-          {session?.diagnostics?.degraded && (
+        {currentView === 'portfolio' ? (
+          <PortfolioDashboard />
+        ) : (
+          <div className={styles.content}>
+            {/* Degraded Mode Banner */}
+            {session?.diagnostics?.degraded && (
             <DegradedBanner
               reason={session.diagnostics.degradedReason || 'AI service temporarily unavailable'}
               affectedFeatures={[
@@ -193,11 +207,12 @@ function AppContent() {
               </div>
             </div>
           )}
-        </div>
+          </div>
+        )}
       </main>
 
       {/* Chat Container (always rendered, manages its own visibility) */}
-      <ChatContainer />
+      {currentView === 'main' && <ChatContainer />}
 
       {/* App Footer */}
       <AppFooter />

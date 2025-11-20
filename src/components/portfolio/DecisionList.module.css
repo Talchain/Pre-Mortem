@@ -1,0 +1,233 @@
+/**
+ * DecisionList Styles
+ * Table view of all decisions
+ */
+
+.container {
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Search */
+.search {
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--bg-paper);
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thead {
+  background: var(--bg-subtle);
+}
+
+.th {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border-default);
+}
+
+.thSortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.thSortable:hover {
+  color: var(--text-primary);
+}
+
+.tbody {
+}
+
+.tr {
+  border-bottom: 1px solid var(--border-default);
+  transition: background-color var(--duration-fast);
+}
+
+.tr:hover {
+  background: var(--bg-subtle);
+}
+
+.td {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+}
+
+.decisionTitle {
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.decisionMeta {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Status Badge */
+.statusBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  text-transform: capitalize;
+}
+
+.statusFraming {
+  background: var(--sky-100);
+  color: var(--sky-700);
+}
+
+.statusActive {
+  background: var(--mint-100);
+  color: var(--mint-700);
+}
+
+.statusDecided {
+  background: var(--purple-100);
+  color: var(--purple-700);
+}
+
+.statusReviewed {
+  background: var(--sun-100);
+  color: var(--sun-700);
+}
+
+/* Outcome Badge */
+.outcomeBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  text-transform: capitalize;
+}
+
+.outcomeSuccess {
+  background: var(--mint-500);
+  color: var(--ink-900);
+}
+
+.outcomeFailure {
+  background: var(--carrot-500);
+  color: var(--ink-900);
+}
+
+.outcomeMixed {
+  background: var(--sun-500);
+  color: var(--ink-900);
+}
+
+.outcomeNone {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.actionButton {
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.actionButton:hover {
+  background: var(--border-default);
+}
+
+.deleteButton {
+  color: var(--carrot-600);
+}
+
+.deleteButton:hover {
+  background: var(--carrot-100);
+  border-color: var(--carrot-300);
+}
+
+/* Empty State */
+.empty {
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+}
+
+.emptyText {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search {
+    padding: var(--space-md);
+  }
+
+  .table {
+    font-size: var(--text-label);
+  }
+
+  .th,
+  .td {
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .th:nth-child(3),
+  .td:nth-child(3),
+  .th:nth-child(4),
+  .td:nth-child(4) {
+    display: none;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .tr,
+  .actionButton {
+    transition: none;
+  }
+}
