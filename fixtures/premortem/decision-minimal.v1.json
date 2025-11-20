@@ -1,0 +1,130 @@
+{
+  "decision": {
+    "id": "660e8400-e29b-41d4-a716-446655440000",
+    "title": "Hire full-time engineer vs outsource development",
+    "description": "We need to decide whether to hire a full-time senior engineer or outsource our development work to an agency. The decision impacts our ability to scale and our burn rate.",
+    "context": "Early-stage startup with limited runway. Critical features needed in 3 months.",
+    "goals": [
+      "Ship critical features within 3 months"
+    ],
+    "constraints": [],
+    "stakeholders": [],
+    "timeframe": "Decision needed by next week"
+  },
+  "analysis": {
+    "scenarios": [
+      {
+        "id": "670e8400-e29b-41d4-a716-446655440001",
+        "title": "Full-time hire takes too long to onboard",
+        "description": "Hiring process takes 8 weeks, then onboarding takes 4 weeks. By month 3, new hire is only 50% productive. Critical features miss deadline.",
+        "likelihood": "high",
+        "impact": "high",
+        "category": "organizational",
+        "rootCauseIds": ["770e8400-e29b-41d4-a716-446655440001"],
+        "createdAt": "2025-11-20T11:00:00Z"
+      },
+      {
+        "id": "670e8400-e29b-41d4-a716-446655440002",
+        "title": "Agency delivers poor quality code",
+        "description": "Outsourced agency prioritizes speed over quality. Code is difficult to maintain, has security vulnerabilities, and requires extensive refactoring.",
+        "likelihood": "medium",
+        "impact": "high",
+        "category": "technical",
+        "rootCauseIds": ["770e8400-e29b-41d4-a716-446655440002"],
+        "createdAt": "2025-11-20T11:05:00Z"
+      },
+      {
+        "id": "670e8400-e29b-41d4-a716-446655440003",
+        "title": "Full-time hire is too expensive and increases burn rate",
+        "description": "Salary + benefits + equity costs $180K/year. Burn rate increases 50%. Runway drops from 18 months to 12 months.",
+        "likelihood": "high",
+        "impact": "critical",
+        "category": "financial",
+        "rootCauseIds": ["770e8400-e29b-41d4-a716-446655440003"],
+        "createdAt": "2025-11-20T11:10:00Z"
+      }
+    ],
+    "rootCauses": [
+      {
+        "id": "770e8400-e29b-41d4-a716-446655440001",
+        "scenarioIds": ["670e8400-e29b-41d4-a716-446655440001"],
+        "description": "No hiring pipeline or pre-vetted candidates",
+        "type": "capability",
+        "addressable": true,
+        "mitigationIds": ["870e8400-e29b-41d4-a716-446655440001"],
+        "depth": 1
+      },
+      {
+        "id": "770e8400-e29b-41d4-a716-446655440002",
+        "scenarioIds": ["670e8400-e29b-41d4-a716-446655440002"],
+        "description": "Lack of agency vetting process and code review standards",
+        "type": "capability",
+        "addressable": true,
+        "mitigationIds": ["870e8400-e29b-41d4-a716-446655440002"],
+        "depth": 1
+      },
+      {
+        "id": "770e8400-e29b-41d4-a716-446655440003",
+        "scenarioIds": ["670e8400-e29b-41d4-a716-446655440003"],
+        "description": "Limited funding runway",
+        "type": "constraint",
+        "addressable": false,
+        "mitigationIds": ["870e8400-e29b-41d4-a716-446655440003"],
+        "depth": 1
+      }
+    ],
+    "mitigations": [
+      {
+        "id": "870e8400-e29b-41d4-a716-446655440001",
+        "rootCauseIds": ["770e8400-e29b-41d4-a716-446655440001"],
+        "strategy": "Start recruiting immediately, use contract-to-hire to test fit before full commitment",
+        "effort": "medium",
+        "effectiveness": "high",
+        "implemented": false,
+        "priority": 80
+      },
+      {
+        "id": "870e8400-e29b-41d4-a716-446655440002",
+        "rootCauseIds": ["770e8400-e29b-41d4-a716-446655440002"],
+        "strategy": "Require code reviews, set strict quality gates, use reputable agency with references",
+        "effort": "low",
+        "effectiveness": "medium",
+        "implemented": false,
+        "priority": 70
+      },
+      {
+        "id": "870e8400-e29b-41d4-a716-446655440003",
+        "rootCauseIds": ["770e8400-e29b-41d4-a716-446655440003"],
+        "strategy": "Consider hybrid: contract dev for immediate needs, hire full-time after next funding round",
+        "effort": "low",
+        "effectiveness": "high",
+        "implemented": false,
+        "priority": 85
+      }
+    ],
+    "confidenceAdjustment": {
+      "initial": 70,
+      "adjusted": 55,
+      "factors": [
+        "Both options have significant risks",
+        "Limited runway makes wrong choice costly",
+        "Hybrid approach may be optimal but wasn't initially considered"
+      ],
+      "calculatedAt": "2025-11-20T11:15:00Z"
+    }
+  },
+  "evidence": [],
+  "meta": {
+    "version": "1.0.0",
+    "createdAt": "2025-11-20T10:00:00Z",
+    "updatedAt": "2025-11-20T11:15:00Z",
+    "aiProvider": "anthropic",
+    "aiModel": "claude-3-5-sonnet-20241022",
+    "diagnostics": {
+      "totalTokens": 4200,
+      "processingTime": 3800,
+      "warnings": [],
+      "degraded": false
+    }
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "decision": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "title": "Launch Product X in Q2 2025 vs Wait for Q3",
+    "description": "We need to decide whether to launch our new SaaS product in Q2 2025 as planned, or delay until Q3 to add advanced features and improve quality. The market window is closing as competitors are also launching similar products.",
+    "context": "Product X is a project management tool targeting mid-market companies. Current development is 85% complete. We have $200K remaining budget for marketing. Three competitors are launching similar products in Q3. Our beta users (500+) report 4.2/5 satisfaction.",
+    "goals": [
+      "Achieve 10K paid users within 6 months of launch",
+      "Maintain 4.5+ app store rating",
+      "Generate $500K ARR by end of year",
+      "Establish market leadership before competitors"
+    ],
+    "constraints": [
+      "Limited marketing budget ($200K)",
+      "Small development team (5 engineers)",
+      "CEO committed to Q2 publicly",
+      "Can't hire additional staff until post-launch"
+    ],
+    "stakeholders": [
+      "CEO (wants early launch)",
+      "CTO (prefers quality over speed)",
+      "Product team (mixed opinions)",
+      "Beta users (expect launch soon)",
+      "Investors (watching timeline)"
+    ],
+    "timeframe": "Decision needed by March 15, 2025. Q2 launch = April 1. Q3 launch = July 1."
+  },
+  "analysis": {
+    "scenarios": [
+      {
+        "id": "650e8400-e29b-41d4-a716-446655440001",
+        "title": "Critical bugs cause mass user churn",
+        "description": "Launch with remaining bugs leads to poor user experience. App crashes frequently, data sync fails, and users abandon the platform within first week. Negative reviews tank app store rating to 2.5/5.",
+        "likelihood": "high",
+        "impact": "critical",
+        "category": "technical",
+        "rootCauseIds": [
+          "750e8400-e29b-41d4-a716-446655440001",
+          "750e8400-e29b-41d4-a716-446655440002"
+        ],
+        "createdAt": "2025-11-20T10:00:00Z"
+      },
+      {
+        "id": "650e8400-e29b-41d4-a716-446655440002",
+        "title": "Competitor launches first and captures market",
+        "description": "By waiting until Q3, competitors launch in Q2 with similar features and better marketing. They capture early adopters and establish brand recognition. We enter a crowded market as a follower, not a leader.",
+        "likelihood": "medium",
+        "impact": "high",
+        "category": "market",
+        "rootCauseIds": [
+          "750e8400-e29b-41d4-a716-446655440003"
+        ],
+        "createdAt": "2025-11-20T10:05:00Z"
+      },
+      {
+        "id": "650e8400-e29b-41d4-a716-446655440003",
+        "title": "Marketing budget insufficient for Q2 launch",
+        "description": "Rushing to market in Q2 means less time for marketing preparation. $200K budget gets spread too thin across multiple channels. Launch generates weak initial traction (only 1K users in first month instead of target 5K).",
+        "likelihood": "high",
+        "impact": "medium",
+        "category": "financial",
+        "rootCauseIds": [
+          "750e8400-e29b-41d4-a716-446655440004",
+          "750e8400-e29b-41d4-a716-446655440005"
+        ],
+        "createdAt": "2025-11-20T10:10:00Z"
+      },
+      {
+        "id": "650e8400-e29b-41d4-a716-446655440004",
+        "title": "Team burnout from rushing launch",
+        "description": "Pushing for Q2 launch requires 60-hour work weeks for 8 weeks. Engineers burn out, make mistakes, and two key developers quit immediately after launch. This cripples post-launch support and feature development.",
+        "likelihood": "medium",
+        "impact": "high",
+        "category": "organizational",
+        "rootCauseIds": [
+          "750e8400-e29b-41d4-a716-446655440006"
+        ],
+        "createdAt": "2025-11-20T10:15:00Z"
+      },
+      {
+        "id": "650e8400-e29b-41d4-a716-446655440005",
+        "title": "Advanced features delay causes Q3 miss too",
+        "description": "If we delay to Q3 for advanced features, scope creep pushes launch to Q4. Competitors dominate market by then. We miss fiscal year targets and investor confidence drops.",
+        "likelihood": "medium",
+        "impact": "high",
+        "category": "strategic",
+        "rootCauseIds": [
+          "750e8400-e29b-41d4-a716-446655440007"
+        ],
+        "createdAt": "2025-11-20T10:20:00Z"
+      }
+    ],
+    "rootCauses": [
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440001",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440001"],
+        "description": "Insufficient QA testing time (only 2 weeks allocated)",
+        "type": "constraint",
+        "addressable": true,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440001"],
+        "depth": 1
+      },
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440002",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440001"],
+        "description": "Complex data sync architecture prone to edge cases",
+        "type": "capability",
+        "addressable": true,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440002"],
+        "depth": 2,
+        "parentCauseId": "750e8400-e29b-41d4-a716-446655440001"
+      },
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440003",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440002"],
+        "description": "Competitors have larger marketing budgets and earlier start",
+        "type": "external",
+        "addressable": false,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440003"],
+        "depth": 1
+      },
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440004",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440003"],
+        "description": "Marketing team under-resourced (only 1 person)",
+        "type": "capability",
+        "addressable": true,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440004"],
+        "depth": 1
+      },
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440005",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440003"],
+        "description": "No pre-launch marketing campaign planned",
+        "type": "assumption",
+        "addressable": true,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440004"],
+        "depth": 1
+      },
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440006",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440004"],
+        "description": "Unrealistic timeline without considering team capacity",
+        "type": "constraint",
+        "addressable": true,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440005"],
+        "depth": 1
+      },
+      {
+        "id": "750e8400-e29b-41d4-a716-446655440007",
+        "scenarioIds": ["650e8400-e29b-41d4-a716-446655440005"],
+        "description": "Advanced features not well-defined (scope creep risk)",
+        "type": "assumption",
+        "addressable": true,
+        "mitigationIds": ["850e8400-e29b-41d4-a716-446655440006"],
+        "depth": 1
+      }
+    ],
+    "mitigations": [
+      {
+        "id": "850e8400-e29b-41d4-a716-446655440001",
+        "rootCauseIds": ["750e8400-e29b-41d4-a716-446655440001"],
+        "strategy": "Extend QA phase by 4 weeks, hire contract QA specialist for critical path testing",
+        "effort": "medium",
+        "effectiveness": "high",
+        "implemented": false,
+        "priority": 95
+      },
+      {
+        "id": "850e8400-e29b-41d4-a716-446655440002",
+        "rootCauseIds": ["750e8400-e29b-41d4-a716-446655440002"],
+        "strategy": "Simplify data sync for v1.0, move advanced sync to v1.1 post-launch",
+        "effort": "low",
+        "effectiveness": "high",
+        "implemented": false,
+        "priority": 90
+      },
+      {
+        "id": "850e8400-e29b-41d4-a716-446655440003",
+        "rootCauseIds": ["750e8400-e29b-41d4-a716-446655440003"],
+        "strategy": "Focus on niche differentiation (better integrations) rather than competing on features",
+        "effort": "medium",
+        "effectiveness": "medium",
+        "implemented": false,
+        "priority": 60
+      },
+      {
+        "id": "850e8400-e29b-41d4-a716-446655440004",
+        "rootCauseIds": [
+          "750e8400-e29b-41d4-a716-446655440004",
+          "750e8400-e29b-41d4-a716-446655440005"
+        ],
+        "strategy": "Hire freelance marketing consultant, start pre-launch campaign 6 weeks before launch",
+        "effort": "low",
+        "effectiveness": "high",
+        "implemented": false,
+        "priority": 85
+      },
+      {
+        "id": "850e8400-e29b-41d4-a716-446655440005",
+        "rootCauseIds": ["750e8400-e29b-41d4-a716-446655440006"],
+        "strategy": "Add 2-week buffer to timeline, implement mandatory weekend rest policy",
+        "effort": "low",
+        "effectiveness": "medium",
+        "implemented": false,
+        "priority": 70
+      },
+      {
+        "id": "850e8400-e29b-41d4-a716-446655440006",
+        "rootCauseIds": ["750e8400-e29b-41d4-a716-446655440007"],
+        "strategy": "Lock advanced features list today, commit to v1.1 roadmap instead of v1.0 scope creep",
+        "effort": "low",
+        "effectiveness": "high",
+        "implemented": false,
+        "priority": 88
+      }
+    ],
+    "confidenceAdjustment": {
+      "initial": 65,
+      "adjusted": 45,
+      "factors": [
+        "High-impact bugs highly likely with current timeline",
+        "Marketing under-preparation reduces launch success",
+        "Team capacity risks are underestimated",
+        "Scope creep risk if delaying to Q3"
+      ],
+      "calculatedAt": "2025-11-20T10:30:00Z"
+    }
+  },
+  "evidence": [
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440001",
+      "title": "Beta user feedback: crash rate concerns",
+      "type": "data",
+      "content": "Beta testing shows crash rate of 8% on iOS devices, particularly on iPhone 14 Pro. Users report data sync failures when switching between devices. Sample size: 500 beta users over 4 weeks.",
+      "source": "Internal QA Dashboard, Week 12 Report",
+      "linkedToScenarioIds": ["650e8400-e29b-41d4-a716-446655440001"],
+      "linkedToRootCauseIds": ["750e8400-e29b-41d4-a716-446655440002"],
+      "linkedToMitigationIds": [],
+      "createdAt": "2025-11-20T09:00:00Z",
+      "tags": ["beta-testing", "technical", "ios"]
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440002",
+      "title": "Competitor launch timeline (public info)",
+      "type": "research",
+      "content": "Competitor A announced Q2 launch at their conference. Competitor B leaked Q3 date in press release. Competitor C (stealth mode) rumored for Q2 based on hiring patterns and domain registrations.",
+      "source": "TechCrunch, Product Hunt, LinkedIn analysis",
+      "linkedToScenarioIds": ["650e8400-e29b-41d4-a716-446655440002"],
+      "linkedToRootCauseIds": ["750e8400-e29b-41d4-a716-446655440003"],
+      "linkedToMitigationIds": ["850e8400-e29b-41d4-a716-446655440003"],
+      "createdAt": "2025-11-20T09:15:00Z",
+      "tags": ["market-research", "competition"]
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440003",
+      "title": "Historical data: rushed launches fail",
+      "type": "historical",
+      "content": "Analysis of 50 SaaS launches from 2020-2024 shows rushed launches (< 3 months QA) have 65% higher churn in first 90 days. Products that delayed for quality improvements saw 40% higher retention.",
+      "source": "SaaS Launch Analysis Report 2024 (ChartMogul)",
+      "linkedToScenarioIds": ["650e8400-e29b-41d4-a716-446655440001"],
+      "linkedToRootCauseIds": ["750e8400-e29b-41d4-a716-446655440001"],
+      "linkedToMitigationIds": ["850e8400-e29b-41d4-a716-446655440001"],
+      "createdAt": "2025-11-20T09:30:00Z",
+      "tags": ["historical", "saas-benchmarks"]
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440004",
+      "title": "CTO opinion: need 6 more weeks",
+      "type": "expert",
+      "content": "CTO assessment: 'Current code quality is not production-ready. We need minimum 6 additional weeks for refactoring critical paths and comprehensive testing. Rushing will cause technical debt that takes 6 months to fix.'",
+      "source": "CTO Memo, March 5, 2025",
+      "linkedToScenarioIds": ["650e8400-e29b-41d4-a716-446655440001"],
+      "linkedToRootCauseIds": [
+        "750e8400-e29b-41d4-a716-446655440001",
+        "750e8400-e29b-41d4-a716-446655440002"
+      ],
+      "linkedToMitigationIds": ["850e8400-e29b-41d4-a716-446655440001"],
+      "createdAt": "2025-11-20T09:45:00Z",
+      "tags": ["expert-opinion", "technical"]
+    }
+  ],
+  "meta": {
+    "version": "1.0.0",
+    "createdAt": "2025-11-20T08:00:00Z",
+    "updatedAt": "2025-11-20T10:30:00Z",
+    "responseHash": "a3f8b9c1d2e5f6a7b8c9d0e1f2a3b4c5",
+    "aiProvider": "anthropic",
+    "aiModel": "claude-3-5-sonnet-20241022",
+    "diagnostics": {
+      "totalTokens": 15420,
+      "processingTime": 12500,
+      "warnings": [],
+      "degraded": false,
+      "apiCalls": [
+        {
+          "timestamp": "2025-11-20T10:00:00Z",
+          "provider": "anthropic",
+          "model": "claude-3-5-sonnet-20241022",
+          "tokens": 5200,
+          "duration": 4200,
+          "success": true
+        },
+        {
+          "timestamp": "2025-11-20T10:05:00Z",
+          "provider": "anthropic",
+          "model": "claude-3-5-sonnet-20241022",
+          "tokens": 6100,
+          "duration": 5100,
+          "success": true
+        },
+        {
+          "timestamp": "2025-11-20T10:10:00Z",
+          "provider": "anthropic",
+          "model": "claude-3-5-sonnet-20241022",
+          "tokens": 4120,
+          "duration": 3200,
+          "success": true
+        }
+      ]
+    },
+    "conversationHistory": [
+      {
+        "id": "a50e8400-e29b-41d4-a716-446655440001",
+        "role": "user",
+        "content": "I need to decide whether to launch Product X in Q2 2025 or wait until Q3. What should I consider?",
+        "timestamp": "2025-11-20T08:00:00Z"
+      },
+      {
+        "id": "a50e8400-e29b-41d4-a716-446655440002",
+        "role": "assistant",
+        "content": "To help with this pre-mortem analysis, I need to understand more about your situation. Can you tell me: 1) What are your primary goals for this launch? 2) What constraints are you working within? 3) Who are the key stakeholders?",
+        "timestamp": "2025-11-20T08:01:00Z"
+      },
+      {
+        "id": "a50e8400-e29b-41d4-a716-446655440003",
+        "role": "user",
+        "content": "Goals: 10K users in 6 months, $500K ARR by EOY, 4.5+ rating. Constraints: $200K marketing budget, 5-person dev team, CEO publicly committed to Q2. Stakeholders: CEO wants early launch, CTO wants quality, beta users expect it soon.",
+        "timestamp": "2025-11-20T08:05:00Z",
+        "extractedData": {
+          "goals": [
+            "Achieve 10K paid users within 6 months of launch",
+            "Maintain 4.5+ app store rating",
+            "Generate $500K ARR by end of year"
+          ],
+          "constraints": [
+            "Limited marketing budget ($200K)",
+            "Small development team (5 engineers)",
+            "CEO committed to Q2 publicly"
+          ],
+          "stakeholders": [
+            "CEO (wants early launch)",
+            "CTO (prefers quality over speed)",
+            "Beta users (expect launch soon)"
+          ]
+        }
+      }
+    ]
+  }
+}

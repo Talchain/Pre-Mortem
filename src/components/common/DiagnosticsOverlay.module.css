@@ -1,0 +1,244 @@
+/**
+ * DiagnosticsOverlay Styles
+ */
+
+.overlay {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-width: 500px;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.2s;
+}
+
+.toggleButton:hover {
+  background: var(--bg-hover);
+}
+
+.toggleButton:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.icon {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.label {
+  flex: 1;
+}
+
+.badge {
+  font-size: 12px;
+}
+
+.healthyBadge {
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+.degradedBadge {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+/* Panel */
+.panel {
+  border-top: 1px solid var(--border-color);
+  padding: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+}
+
+/* Summary Section */
+.summarySection {
+  margin-bottom: 20px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.statValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Degraded Section */
+.degradedSection {
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--color-warning-bg);
+  border-left: 3px solid var(--color-warning);
+  border-radius: 4px;
+}
+
+.degradedReason {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+/* Warnings Section */
+.warningsSection {
+  margin-bottom: 20px;
+}
+
+.warningsList {
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+}
+
+.warningItem {
+  position: relative;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.warningItem::before {
+  content: '⚠';
+  position: absolute;
+  left: -20px;
+  color: var(--color-warning);
+}
+
+/* API Calls Section */
+.apiCallsSection {
+  margin-bottom: 0;
+}
+
+.callsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.callItem {
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.callHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.callStep {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.callStatus {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.statusSuccess {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.statusError {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.callDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.callDetail {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.detailLabel {
+  color: var(--text-secondary);
+  font-weight: 500;
+  min-width: 60px;
+}
+
+.detailValue {
+  color: var(--text-primary);
+}
+
+.callError {
+  margin-top: 8px;
+  padding: 8px;
+  background: var(--color-error-bg);
+  border-left: 3px solid var(--color-error);
+  border-radius: 4px;
+}
+
+.errorLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-error);
+  margin-bottom: 4px;
+}
+
+.errorMessage {
+  display: block;
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}

@@ -22,8 +22,9 @@ export function ContinueToSandbox() {
   // Only show if pre-mortem is complete (scenarios analyzed)
   if (
     !session ||
-    !session.scenarios ||
-    session.scenarios.length === 0 ||
+    !session.premortem ||
+    !session.premortem.failure_scenarios ||
+    session.premortem.failure_scenarios.length === 0 ||
     session.postmortem // Don't show if post-mortem has started
   ) {
     return null;

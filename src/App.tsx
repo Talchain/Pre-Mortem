@@ -18,6 +18,8 @@ import { AppHeader } from '@/components/layout/AppHeader';
 import { AppFooter } from '@/components/layout/AppFooter';
 import { HelpModal } from '@/components/help/HelpModal';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
+import { DiagnosticsOverlay } from '@/components/common/DiagnosticsOverlay';
+import { DegradedBanner } from '@/components/common/DegradedBanner';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { AIModel } from '@/types/premortem';
 import styles from './App.module.css';
@@ -51,6 +53,22 @@ function AppContent() {
       {/* Main Content */}
       <main className={styles.main}>
         <div className={styles.content}>
+          {/* Degraded Mode Banner */}
+          {session?.diagnostics?.degraded && (
+            <DegradedBanner
+              reason={session.diagnostics.degradedReason || 'AI service temporarily unavailable'}
+              affectedFeatures={[
+                'Automatic scenario generation',
+                'Root cause analysis',
+                'Mitigation suggestions',
+              ]}
+              onRetry={() => {
+                // Future: Implement retry logic
+                console.log('Retry AI analysis');
+              }}
+            />
+          )}
+
           {/* Decision Entry or Session Summary */}
           <DecisionEntry />
 
@@ -121,6 +139,9 @@ function AppContent() {
 
       {/* Help Modal */}
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
+
+      {/* Diagnostics Overlay (only show if diagnostics exist) */}
+      {session?.diagnostics && <DiagnosticsOverlay diagnostics={session.diagnostics} />}
     </div>
   );
 }

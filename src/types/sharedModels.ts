@@ -33,6 +33,7 @@ export interface DecisionSession {
   postmortem?: PostMortemAnalysis;
   conversation: Message[];
   handoff?: HandoffMetadata;
+  diagnostics?: Diagnostics;
 }
 
 /* ============================================
@@ -290,4 +291,27 @@ export interface AIReasoningOutput {
   reasoning: string;
   confidence: number;
   extracted_data?: ExtractedContext;
+}
+
+/* ============================================
+   DIAGNOSTICS & DEGRADED MODE
+   ============================================ */
+
+export type APICallStatus = 'success' | 'error' | 'timeout';
+
+export interface APICall {
+  step: string;
+  model: string;
+  durationMs: number;
+  status: APICallStatus;
+  tokensUsed?: number;
+  errorMessage?: string;
+}
+
+export interface Diagnostics {
+  apiCalls: APICall[];
+  totalProcessingTimeMs: number;
+  degraded: boolean;
+  degradedReason?: string;
+  warnings?: string[];
 }

@@ -115,6 +115,24 @@
   --border-default: var(--sand-200);
   --border-emphasis: var(--ink-500);
   --border-focus: var(--semantic-primary);
+  --border-color: var(--border-default);
+
+  /* Interactive Backgrounds */
+  --bg-hover: rgba(38, 38, 38, 0.05);
+  --bg-elevated: var(--paper-50);
+  --bg-secondary: var(--sand-100);
+
+  /* State Backgrounds */
+  --color-success-bg: rgba(103, 200, 158, 0.10);
+  --color-error-bg: rgba(234, 123, 75, 0.10);
+  --color-warning-bg: rgba(234, 123, 75, 0.10);
+
+  /* Semantic Colors (Aliased) */
+  --color-primary: var(--semantic-primary);
+  --color-primary-dark: var(--semantic-primary-hover);
+  --color-success: var(--semantic-success);
+  --color-warning: var(--semantic-warning);
+  --color-error: var(--semantic-danger);
 
 
   /* ============================================
