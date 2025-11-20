@@ -22,16 +22,20 @@ import { DiagnosticsOverlay } from '@/components/common/DiagnosticsOverlay';
 import { DegradedBanner } from '@/components/common/DegradedBanner';
 import { CompletenessWidget } from '@/components/common/CompletenessWidget';
 import { ExportModal } from '@/components/export/ExportModal';
+import { TemplateBrowser } from '@/components/templates/TemplateBrowser';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
+import { PreMortemTemplate } from '@/types/premortem.v1';
+import { applyTemplate } from '@/hooks/useTemplateApplication';
 import { AIModel } from '@/types/premortem';
 import { exportSession, canExportSession } from '@/services/exportService';
 import styles from './App.module.css';
 
 function AppContent() {
-  const { state, updateModel, sendMessage } = useDecisionSession();
+  const { state, updateModel, sendMessage, dispatch } = useDecisionSession();
   const { session, selectedModel } = state;
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
+  const [showTemplateBrowser, setShowTemplateBrowser] = useState(true);
 
   const hasSession = !!session;
   const hasScenarios = (session?.premortem?.failure_scenarios.length || 0) > 0;
@@ -43,6 +47,18 @@ function AppContent() {
 
   const handleSuggestionClick = (suggestion: string) => {
     sendMessage(suggestion);
+  };
+
+  const handleSelectTemplate = (template: PreMortemTemplate) => {
+    // For now, apply template without placeholder customization
+    // Future enhancement: Show placeholder form before applying
+    const newSession = applyTemplate(template, {});
+    dispatch({ type: 'LOAD_SESSION', payload: newSession });
+    setShowTemplateBrowser(false);
+  };
+
+  const handleSkipTemplate = () => {
+    setShowTemplateBrowser(false);
   };
 
   return (
@@ -136,8 +152,16 @@ function AppContent() {
           {/* Outcome Entry (only show if post-mortem started) */}
           <OutcomeEntry />
 
-          {/* Informational Content (only show if no active session) */}
-          {!hasSession && (
+          {/* Template Browser (show when no session and not skipped) */}
+          {!hasSession && showTemplateBrowser && (
+            <TemplateBrowser
+              onSelectTemplate={handleSelectTemplate}
+              onSkipTemplate={handleSkipTemplate}
+            />
+          )}
+
+          {/* Informational Content (only show if no active session and templates skipped) */}
+          {!hasSession && !showTemplateBrowser && (
             <div className={styles.infoSection}>
               <div className={styles.infoCard}>
                 <h2 className={styles.infoTitle}>What is Pre-Mortem Analysis?</h2>
