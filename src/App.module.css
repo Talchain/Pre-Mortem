@@ -34,6 +34,39 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: var(--space-md);
+}
+
+/* Export Button */
+.exportButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-primary);
+  color: var(--ink-900);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-primary);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  box-shadow: var(--shadow-1);
+}
+
+.exportButton:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+}
+
+.exportButton:active {
+  transform: translateY(0);
+}
+
+.exportButton svg {
+  flex-shrink: 0;
 }
 
 /* ============================================

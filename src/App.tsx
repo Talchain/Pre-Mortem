@@ -20,17 +20,21 @@ import { HelpModal } from '@/components/help/HelpModal';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { DiagnosticsOverlay } from '@/components/common/DiagnosticsOverlay';
 import { DegradedBanner } from '@/components/common/DegradedBanner';
+import { ExportModal } from '@/components/export/ExportModal';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { AIModel } from '@/types/premortem';
+import { exportSession, canExportSession } from '@/services/exportService';
 import styles from './App.module.css';
 
 function AppContent() {
   const { state, updateModel } = useDecisionSession();
   const { session, selectedModel } = state;
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
 
   const hasSession = !!session;
   const hasScenarios = (session?.premortem?.failure_scenarios.length || 0) > 0;
+  const canExport = canExportSession(session);
 
   const handleModelChange = (model: AIModel) => {
     updateModel(model);
@@ -46,6 +50,31 @@ function AppContent() {
         <div className={styles.modelSelectorBar}>
           <div className={styles.modelSelectorContent}>
             <ModelSelector selectedModel={selectedModel} onModelChange={handleModelChange} />
+
+            {/* Export Button */}
+            {canExport && (
+              <button
+                className={styles.exportButton}
+                onClick={() => setIsExportOpen(true)}
+                title="Export analysis"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span>Export</span>
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -139,6 +168,16 @@ function AppContent() {
 
       {/* Help Modal */}
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
+
+      {/* Export Modal */}
+      {session && (
+        <ExportModal
+          isOpen={isExportOpen}
+          onClose={() => setIsExportOpen(false)}
+          session={session}
+          onExport={(format, options) => exportSession(session, format, options)}
+        />
+      )}
 
       {/* Diagnostics Overlay (only show if diagnostics exist) */}
       {session?.diagnostics && <DiagnosticsOverlay diagnostics={session.diagnostics} />}
