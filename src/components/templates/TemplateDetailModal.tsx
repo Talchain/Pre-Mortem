@@ -6,6 +6,8 @@
 import { useEffect } from 'react';
 import { PreMortemTemplate } from '@/types/premortem.v1';
 import styles from './TemplateDetailModal.module.css';
+import { useSwipeToDismiss, getOverlayOpacity, getDragHandleTransform } from '../../utils/swipeGestures';
+import { useHaptics } from '../../hooks/useHaptics';
 
 interface TemplateDetailModalProps {
   template: PreMortemTemplate;
@@ -18,6 +20,18 @@ export function TemplateDetailModal({
   onClose,
   onUseTemplate,
 }: TemplateDetailModalProps) {
+  const haptic = useHaptics();
+
+  // Swipe-to-dismiss functionality (mobile only)
+  const { isDragging, currentY, handlers } = useSwipeToDismiss({
+    onDismiss: () => {
+      haptic.medium();
+      onClose();
+    },
+    threshold: 100,
+    velocityThreshold: 0.5,
+  });
+
   // Close modal on Escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -44,9 +58,34 @@ export function TemplateDetailModal({
     }
   };
 
+  // Calculate overlay opacity based on swipe distance
+  const overlayOpacity = getOverlayOpacity(currentY);
+  const dragHandleStyle = getDragHandleTransform(isDragging);
+
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modal}>
+    <div
+      className={styles.overlay}
+      onClick={handleOverlayClick}
+      style={{ opacity: overlayOpacity }}
+    >
+      <div
+        className={styles.modal}
+        data-swipeable="true"
+        {...handlers}
+        style={{
+          transform: isDragging || currentY > 0 ? `translateY(${currentY}px)` : undefined,
+          transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+        }}
+      >
+        {/* Swipe indicator (mobile only) */}
+        <div
+          className={styles.swipeIndicator}
+          style={{
+            transform: dragHandleStyle.transform,
+            backgroundColor: dragHandleStyle.backgroundColor,
+          }}
+        />
+
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.headerContent}>
@@ -61,7 +100,13 @@ export function TemplateDetailModal({
             <h2 className={styles.title}>{template.title}</h2>
             <p className={styles.description}>{template.description}</p>
           </div>
-          <button className={styles.closeButton} onClick={onClose}>
+          <button
+            className={styles.closeButton}
+            onClick={() => {
+              haptic.light();
+              onClose();
+            }}
+          >
             ×
           </button>
         </div>
@@ -191,10 +236,22 @@ export function TemplateDetailModal({
 
         {/* Footer */}
         <div className={styles.footer}>
-          <button className={styles.cancelButton} onClick={onClose}>
+          <button
+            className={styles.cancelButton}
+            onClick={() => {
+              haptic.light();
+              onClose();
+            }}
+          >
             Back to Templates
           </button>
-          <button className={styles.useButton} onClick={onUseTemplate}>
+          <button
+            className={styles.useButton}
+            onClick={() => {
+              haptic.medium();
+              onUseTemplate();
+            }}
+          >
             <span>Use This Template</span>
             <span>→</span>
           </button>

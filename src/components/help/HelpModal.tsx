@@ -6,6 +6,8 @@
 
 import { useEffect } from 'react';
 import styles from './HelpModal.module.css';
+import { useSwipeToDismiss, getOverlayOpacity, getDragHandleTransform } from '../../utils/swipeGestures';
+import { useHaptics } from '../../hooks/useHaptics';
 
 interface HelpModalProps {
   isOpen: boolean;
@@ -13,6 +15,18 @@ interface HelpModalProps {
 }
 
 export function HelpModal({ isOpen, onClose }: HelpModalProps) {
+  const haptic = useHaptics();
+
+  // Swipe-to-dismiss functionality (mobile only)
+  const { isDragging, currentY, handlers } = useSwipeToDismiss({
+    onDismiss: () => {
+      haptic.medium();
+      onClose();
+    },
+    threshold: 100,
+    velocityThreshold: 0.5,
+  });
+
   // Close on Escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -40,13 +54,46 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
 
   if (!isOpen) return null;
 
+  // Calculate overlay opacity based on swipe distance
+  const overlayOpacity = getOverlayOpacity(currentY);
+  const dragHandleStyle = getDragHandleTransform(isDragging);
+
   return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={styles.overlay}
+      onClick={onClose}
+      style={{ opacity: overlayOpacity }}
+    >
+      <div
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+        data-swipeable="true"
+        {...handlers}
+        style={{
+          transform: isDragging || currentY > 0 ? `translateY(${currentY}px)` : undefined,
+          transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+        }}
+      >
+        {/* Swipe indicator (mobile only) */}
+        <div
+          className={styles.swipeIndicator}
+          style={{
+            transform: dragHandleStyle.transform,
+            backgroundColor: dragHandleStyle.backgroundColor,
+          }}
+        />
+
         {/* Header */}
         <div className={styles.header}>
           <h2 className={styles.title}>Help & Documentation</h2>
-          <button className={styles.closeButton} onClick={onClose} aria-label="Close help">
+          <button
+            className={styles.closeButton}
+            onClick={() => {
+              haptic.light();
+              onClose();
+            }}
+            aria-label="Close help"
+          >
             ✕
           </button>
         </div>

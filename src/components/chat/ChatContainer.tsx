@@ -11,6 +11,7 @@ import { ChatMessage } from './ChatMessage';
 import { TypingIndicator } from './TypingIndicator';
 import { ChatInput } from './ChatInput';
 import { ConversationalMode } from './ConversationalMode';
+import { useHaptics } from '../../hooks/useHaptics';
 import styles from './ChatContainer.module.css';
 
 type ChatState = 'collapsed' | 'medium' | 'full';
@@ -18,6 +19,7 @@ type ChatState = 'collapsed' | 'medium' | 'full';
 export function ChatContainer() {
   const { state, sendMessage, toggleChat } = useDecisionSession();
   const { session, isTyping, chatExpanded, chatHeight } = state;
+  const haptic = useHaptics();
 
   const [chatState, setChatState] = useState<ChatState>('collapsed');
   const [isDragging, setIsDragging] = useState(false);
@@ -178,6 +180,7 @@ export function ChatContainer() {
      ======================================== */
 
   const handleHeaderClick = () => {
+    haptic.light();
     if (chatState === 'collapsed') {
       setChatState('medium');
       setCustomHeight(null);
@@ -188,11 +191,13 @@ export function ChatContainer() {
   };
 
   const handleMaximize = () => {
+    haptic.light();
     setChatState('full');
     setCustomHeight(null);
   };
 
   const handleMinimize = () => {
+    haptic.light();
     setChatState('medium');
     setCustomHeight(null);
   };
@@ -253,6 +258,7 @@ export function ChatContainer() {
               className={`${styles.headerButton} ${showGuidedPrompts ? styles.headerButtonActive : ''}`}
               onClick={(e) => {
                 e.stopPropagation();
+                haptic.light();
                 setShowGuidedPrompts(!showGuidedPrompts);
               }}
               aria-label={showGuidedPrompts ? 'Hide guided prompts' : 'Show guided prompts'}
@@ -304,6 +310,7 @@ export function ChatContainer() {
               className={styles.headerButton}
               onClick={(e) => {
                 e.stopPropagation();
+                haptic.light();
                 setChatState('collapsed');
                 setCustomHeight(null);
               }}

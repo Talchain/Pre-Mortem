@@ -37,6 +37,28 @@
   flex-direction: column;
   box-shadow: var(--shadow-3);
   animation: slideUp var(--duration-base);
+  position: relative;
+}
+
+/* Swipe indicator (mobile only) */
+.swipeIndicator {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .swipeIndicator {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--border-default);
+    border-radius: 2px;
+    transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+    z-index: 10;
+  }
 }
 
 @keyframes slideUp {
