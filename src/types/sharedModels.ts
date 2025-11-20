@@ -172,6 +172,25 @@ export interface PostMortemAnalysis {
   lessons_learned: Lesson[];
   accuracy_score: number;
   reviewed_at: string;
+
+  // Outcome tracking for portfolio analytics
+  scenario_outcomes?: ScenarioOutcome[];
+  mitigation_effectiveness?: MitigationEffectiveness[];
+  decision_date?: string;
+}
+
+export interface ScenarioOutcome {
+  scenario_id: string;
+  occurred: boolean;
+  severity?: 'minor' | 'moderate' | 'major' | 'catastrophic';
+  notes?: string;
+}
+
+export interface MitigationEffectiveness {
+  mitigation_id: string;
+  implemented: boolean;
+  effectiveness?: 'ineffective' | 'partially_effective' | 'very_effective';
+  notes?: string;
 }
 
 export interface Lesson {
@@ -350,4 +369,67 @@ export interface Diagnostics {
   degraded: boolean;
   degradedReason?: string;
   warnings?: string[];
+}
+
+/* ============================================
+   PORTFOLIO ANALYTICS
+   ============================================ */
+
+/**
+ * Aggregate statistics across all completed pre-mortems
+ */
+export interface PortfolioStats {
+  // Overview
+  total_decisions: number;
+  completed_decisions: number; // with outcomes recorded
+  avg_scenarios_per_decision: number;
+  avg_mitigations_per_decision: number;
+
+  // Outcomes
+  outcomes: {
+    success: number;
+    failure: number;
+    mixed: number;
+  };
+
+  // Scenario analysis
+  most_common_scenarios: Array<{
+    title: string;
+    occurrence_count: number;
+    occurrence_rate: number; // % of decisions where this scenario occurred
+  }>;
+
+  // Mitigation effectiveness
+  most_effective_mitigations: Array<{
+    strategy: string;
+    effectiveness_rating: number; // 0-100
+    implementation_count: number;
+  }>;
+
+  // Risk patterns
+  risk_heatmap: Array<{
+    likelihood_bucket: 'low' | 'medium' | 'high';
+    impact_bucket: 'minor' | 'moderate' | 'major' | 'catastrophic';
+    count: number;
+  }>;
+
+  // Temporal
+  decisions_by_month: Array<{
+    month: string; // YYYY-MM
+    count: number;
+  }>;
+}
+
+/**
+ * Individual decision summary for portfolio view
+ */
+export interface DecisionSummary {
+  id: string;
+  question: string;
+  created_at: string;
+  status: SessionStatus;
+  outcome?: OutcomeType;
+  scenario_count: number;
+  mitigation_count: number;
+  template_used?: string;
 }
