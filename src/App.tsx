@@ -20,6 +20,7 @@ import { HelpModal } from '@/components/help/HelpModal';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { DiagnosticsOverlay } from '@/components/common/DiagnosticsOverlay';
 import { DegradedBanner } from '@/components/common/DegradedBanner';
+import { CompletenessWidget } from '@/components/common/CompletenessWidget';
 import { ExportModal } from '@/components/export/ExportModal';
 import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { AIModel } from '@/types/premortem';
@@ -27,7 +28,7 @@ import { exportSession, canExportSession } from '@/services/exportService';
 import styles from './App.module.css';
 
 function AppContent() {
-  const { state, updateModel } = useDecisionSession();
+  const { state, updateModel, sendMessage } = useDecisionSession();
   const { session, selectedModel } = state;
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
@@ -38,6 +39,10 @@ function AppContent() {
 
   const handleModelChange = (model: AIModel) => {
     updateModel(model);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    sendMessage(suggestion);
   };
 
   return (
@@ -96,6 +101,13 @@ function AppContent() {
                 console.log('Retry AI analysis');
               }}
             />
+          )}
+
+          {/* Completeness Widget */}
+          {hasSession && (
+            <div className={styles.section}>
+              <CompletenessWidget session={session} onSuggestionClick={handleSuggestionClick} />
+            </div>
           )}
 
           {/* Decision Entry or Session Summary */}
