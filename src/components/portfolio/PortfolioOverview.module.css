@@ -166,13 +166,96 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  /* Stats - single column on mobile */
   .statsGrid {
     grid-template-columns: 1fr;
+    gap: var(--mobile-card-gap);
+    margin-bottom: var(--mobile-section-gap);
+  }
+
+  .statCard {
+    padding: var(--mobile-padding);
+  }
+
+  .statValue {
+    font-size: 32px;
+  }
+
+  /* Outcomes */
+  .outcomes {
+    padding: var(--mobile-padding);
+    margin-bottom: var(--mobile-section-gap);
+  }
+
+  .outcomesTitle {
+    font-size: 18px;
+    margin-bottom: var(--space-md);
   }
 
   .outcomesGrid {
     grid-template-columns: 1fr;
+    gap: var(--mobile-card-gap);
+  }
+
+  .outcomeCard {
+    padding: var(--space-md);
+  }
+
+  .outcomeIcon {
+    font-size: 28px;
+  }
+
+  .outcomeValue {
+    font-size: 24px;
+  }
+
+  .outcomeLabel {
+    font-size: 15px;
+  }
+
+  /* Recent Decisions */
+  .recent {
+    padding: var(--mobile-padding);
+  }
+
+  .recentTitle {
+    font-size: 18px;
+    margin-bottom: var(--space-md);
+  }
+
+  .recentList {
+    gap: var(--mobile-card-gap);
+  }
+
+  /* Touch-friendly recent items */
+  .recentItem {
+    padding: var(--space-md);
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .recentItemTitle {
+    font-size: 15px;
+  }
+
+  .recentItemMeta {
+    font-size: 13px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .recentItem:hover {
+      background: var(--bg-subtle);
+      transform: none;
+    }
+
+    .recentItem:active {
+      background: var(--border-default);
+      transform: scale(0.99);
+    }
   }
 }
 

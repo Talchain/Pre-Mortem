@@ -287,34 +287,122 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .overlay {
     padding: 0;
     align-items: flex-end;
   }
 
   .modal {
-    max-height: 95vh;
+    height: 100vh;
+    max-height: 100vh;
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    animation: slideUpMobile var(--duration-base);
   }
 
-  .header,
-  .content,
-  .footer {
-    padding: var(--space-lg);
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Header with swipe indicator */
+  .header {
+    padding: var(--space-md) var(--mobile-padding);
+    padding-top: calc(var(--space-md) + 12px);
+    position: relative;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--border-default);
+    border-radius: 2px;
   }
 
   .title {
-    font-size: var(--text-heading-md);
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  /* Close button - touch-friendly */
+  .closeButton {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+  }
+
+  /* Content with safe area */
+  .content {
+    padding: var(--mobile-padding);
+  }
+
+  .section {
+    margin-bottom: var(--mobile-section-gap);
   }
 
   .metadata {
     flex-direction: column;
     gap: var(--space-md);
+    padding: var(--space-md);
   }
 
+  /* Footer with safe area */
   .footer {
+    padding: var(--mobile-padding);
+    padding-bottom: calc(var(--mobile-padding) + env(safe-area-inset-bottom, 0px));
     flex-direction: column-reverse;
+  }
+
+  /* Touch-friendly buttons */
+  .useButton,
+  .cancelButton {
+    min-height: 48px;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 16px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .closeButton:hover {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+
+    .closeButton:active {
+      background: var(--border-default);
+      color: var(--text-primary);
+    }
+
+    .useButton:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .useButton:active {
+      transform: scale(0.98);
+    }
+
+    .cancelButton:hover {
+      background: var(--bg-subtle);
+    }
+
+    .cancelButton:active {
+      background: var(--border-default);
+    }
   }
 }
 

@@ -360,53 +360,137 @@
    MOBILE RESPONSIVE
    ============================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .container {
     left: 0;
     right: 0;
     border-left: none;
     border-right: none;
+    border-radius: 0;
   }
 
   /* On mobile, collapsed is smaller */
   .collapsed {
-    height: 56px !important;
+    height: 60px !important;
   }
 
   .collapsed .header {
-    padding: var(--space-sm) var(--space-md);
-    min-height: 56px;
+    padding: var(--space-sm) var(--mobile-padding);
+    min-height: 60px;
   }
 
-  /* Medium and full states take more space on mobile */
+  /* Medium state - half screen */
   .medium {
     height: 50vh;
   }
 
+  /* Full state - full screen with safe area */
   .full {
-    height: 90vh;
+    height: calc(100vh - env(safe-area-inset-top, 0px));
+    max-height: calc(100vh - env(safe-area-inset-top, 0px));
   }
 
+  /* Drag handle - make more prominent for touch */
+  .dragHandle {
+    height: 20px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--bg-subtle)
+    );
+  }
+
+  .dragIndicator {
+    width: 48px;
+    height: 5px;
+    background: var(--border-default);
+    opacity: 0.8;
+  }
+
+  /* Header - touch-friendly */
   .header {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm) var(--mobile-padding);
+    min-height: 60px;
   }
 
-  .messages {
-    padding: var(--space-md);
+  /* Header buttons - 44px touch targets */
+  .headerButton {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
   }
 
-  .emptyState {
-    padding: var(--space-lg);
-  }
-
+  /* Header icon - slightly smaller but still visible */
   .headerIcon {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     font-size: 20px;
   }
 
   .headerTitle {
-    font-size: var(--text-body);
+    font-size: 16px;
+  }
+
+  .messageCount {
+    font-size: 12px;
+  }
+
+  /* Messages area - safe area padding */
+  .messages {
+    padding: var(--mobile-padding);
+    padding-bottom: calc(var(--mobile-padding) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Empty state */
+  .emptyState {
+    padding: var(--space-xl) var(--mobile-padding);
+  }
+
+  .emptyIcon {
+    font-size: 40px;
+  }
+
+  .emptyText {
+    font-size: 15px;
+  }
+
+  .emptyHint {
+    font-size: 13px;
+  }
+
+  /* Guided prompts panel - bottom sheet on mobile */
+  .guidedPromptsPanel {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 70vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border: none;
+    border-top: 1px solid var(--border-default);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .collapsed .header:hover {
+      background: transparent;
+    }
+
+    .headerButton:hover {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+
+    .headerButton:active {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .headerButtonActive:hover {
+      background: var(--sun-500);
+    }
   }
 }
 

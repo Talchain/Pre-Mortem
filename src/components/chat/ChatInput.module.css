@@ -196,18 +196,69 @@
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .container {
-    padding: var(--space-sm);
+    padding: var(--mobile-padding);
+    padding-bottom: calc(var(--mobile-padding) + env(safe-area-inset-bottom, 0px));
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-paper);
+    z-index: 100;
+  }
+
+  .inputWrapper {
+    gap: var(--space-md);
+  }
+
+  /* Prevent iOS zoom on focus */
+  .textarea {
+    font-size: 16px !important;
+    min-height: 48px;
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
   }
 
   .hint {
     display: none; /* Hide keyboard hints on mobile */
   }
 
+  /* Touch-friendly send button */
   .sendButton {
-    width: 48px; /* Slightly larger on mobile */
+    width: 48px;
     height: 48px;
+    border-radius: var(--radius-lg);
+  }
+
+  .sendIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .textarea:hover:not(:disabled) {
+      border-color: var(--border-default);
+    }
+
+    .sendButton:hover:not(:disabled) {
+      background: var(--semantic-primary);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .sendButton:active:not(:disabled) {
+      background: var(--sun-600);
+      transform: scale(0.98);
+    }
+
+    .sendButton:hover:not(:disabled) .sendIcon {
+      transform: none;
+    }
+  }
+
+  /* Character count - smaller on mobile */
+  .charCount {
+    font-size: 12px;
   }
 }
 

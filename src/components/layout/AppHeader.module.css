@@ -226,9 +226,13 @@
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .header {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
   .container {
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md) var(--mobile-padding);
   }
 
   .logoIcon {
@@ -247,19 +251,64 @@
     display: none;
   }
 
+  /* Touch-friendly buttons */
   .helpButton {
-    width: 40px;
-    height: 40px;
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     justify-content: center;
   }
 
+  .activeButton {
+    background: var(--lilac-600);
+  }
+
+  .versionBadge {
+    min-height: 44px;
+    height: 44px;
+    padding: 0 var(--space-sm);
+    font-size: 12px;
+  }
+
   .versionTooltip {
-    right: var(--space-lg);
+    right: var(--mobile-padding);
+    left: var(--mobile-padding);
   }
 
   .tooltipContent {
-    min-width: 240px;
+    min-width: 200px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .versionBadge:hover {
+      color: var(--text-tertiary);
+      border-color: var(--border-default);
+      background: var(--bg-subtle);
+    }
+
+    .versionBadge:active {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+      background: var(--bg-paper);
+    }
+
+    .helpButton:hover {
+      background: var(--lilac-400);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .helpButton:active {
+      background: var(--lilac-500);
+      transform: scale(0.98);
+    }
+
+    .activeButton:hover {
+      background: var(--lilac-600);
+    }
   }
 }
 

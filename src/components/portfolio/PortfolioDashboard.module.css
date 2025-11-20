@@ -112,24 +112,95 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .container {
-    padding: var(--space-lg);
+    padding: var(--mobile-padding);
+    padding-bottom: calc(var(--mobile-padding) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .header {
+    margin-bottom: var(--mobile-section-gap);
   }
 
   .title {
-    font-size: var(--text-heading-lg);
+    font-size: 24px;
   }
 
+  .subtitle {
+    font-size: 15px;
+  }
+
+  /* Touch-friendly tabs */
   .tabs {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-left: calc(-1 * var(--mobile-padding));
+    margin-right: calc(-1 * var(--mobile-padding));
+    padding: 0 var(--mobile-padding);
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .tab {
     white-space: nowrap;
-    font-size: var(--text-label);
-    padding: var(--space-sm) var(--space-md);
+    font-size: 14px;
+    padding: var(--space-md) var(--space-lg);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Empty state */
+  .empty {
+    padding: var(--space-2xl) var(--mobile-padding);
+  }
+
+  .emptyIcon {
+    font-size: 48px;
+  }
+
+  .emptyTitle {
+    font-size: 20px;
+  }
+
+  .emptyText {
+    font-size: 15px;
+  }
+
+  /* Touch-friendly empty button */
+  .emptyButton {
+    min-height: 48px;
+    padding: var(--space-md) var(--space-xl);
+    font-size: 16px;
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .tab:hover {
+      color: var(--text-secondary);
+      background: none;
+    }
+
+    .tab:active {
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+
+    .tabActive:hover {
+      color: var(--text-primary);
+    }
+
+    .emptyButton:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .emptyButton:active {
+      transform: scale(0.98);
+    }
   }
 }
 

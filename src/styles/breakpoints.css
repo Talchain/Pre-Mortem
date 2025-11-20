@@ -1,0 +1,153 @@
+/**
+ * Responsive Breakpoints
+ * Mobile-first approach for Pre-Mortem Analysis Tool
+ */
+
+:root {
+  /* Breakpoint values */
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* Touch target sizes */
+  --touch-target-min: 44px;
+  --touch-target-comfortable: 48px;
+  --touch-target-spacing: 8px;
+
+  /* Mobile-specific spacing */
+  --mobile-padding: 16px;
+  --mobile-section-gap: 24px;
+  --mobile-card-gap: 12px;
+
+  /* Mobile typography */
+  --mobile-input-size: 16px; /* Prevents iOS zoom */
+  --mobile-body-size: 14px;
+  --mobile-heading-size: 20px;
+}
+
+/* Mobile-first breakpoint helpers */
+@media (max-width: 374px) {
+  :root {
+    /* Extra small mobile adjustments */
+    --mobile-padding: 12px;
+    --mobile-section-gap: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    /* Tablet and above */
+    --mobile-padding: 24px;
+    --mobile-section-gap: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* Desktop */
+    --mobile-padding: 32px;
+    --mobile-section-gap: 40px;
+  }
+}
+
+/* Utility classes for responsive behavior */
+.mobile-only {
+  display: block;
+}
+
+.tablet-up {
+  display: none;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+
+  .tablet-up {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* Touch-friendly utilities */
+.touch-target {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  position: relative;
+}
+
+.touch-target-comfortable {
+  min-height: var(--touch-target-comfortable);
+  min-width: var(--touch-target-comfortable);
+}
+
+/* Expand clickable area without visual changes */
+.touch-target-expand::before {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--touch-target-spacing));
+  bottom: calc(-1 * var(--touch-target-spacing));
+  left: calc(-1 * var(--touch-target-spacing));
+  right: calc(-1 * var(--touch-target-spacing));
+}
+
+/* Mobile-specific spacing */
+.mobile-container {
+  padding-left: var(--mobile-padding);
+  padding-right: var(--mobile-padding);
+}
+
+.mobile-section {
+  margin-bottom: var(--mobile-section-gap);
+}
+
+/* Prevent iOS zoom on input focus */
+.mobile-input {
+  font-size: var(--mobile-input-size);
+}
+
+@media (min-width: 1024px) {
+  .mobile-input {
+    font-size: inherit;
+  }
+}
+
+/* Safe area support for notched devices */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .hover-effect:hover {
+    /* Reset hover styles on touch devices */
+    transform: none;
+    box-shadow: inherit;
+  }
+}

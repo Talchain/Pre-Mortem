@@ -407,34 +407,123 @@
    RESPONSIVE
    ============================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .overlay {
     padding: 0;
+    align-items: flex-end;
   }
 
   .modal {
+    height: 100vh;
     max-height: 100vh;
-    border-radius: 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    animation: slideUpMobile var(--duration-base) var(--ease-out);
   }
 
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* Header with swipe indicator */
   .header {
-    padding: var(--space-lg);
+    padding: var(--space-md) var(--mobile-padding);
+    padding-top: calc(var(--space-md) + 12px);
+    position: relative;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: var(--border-default);
+    border-radius: 2px;
   }
 
   .title {
     font-size: var(--text-heading-sm);
   }
 
-  .content {
-    padding: var(--space-lg);
+  /* Close button - touch-friendly */
+  .closeButton {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
   }
 
+  /* Content with safe area */
+  .content {
+    padding: var(--mobile-padding);
+    padding-bottom: calc(var(--mobile-padding) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .section {
+    margin-bottom: var(--mobile-section-gap);
+  }
+
+  .text {
+    font-size: 15px;
+  }
+
+  /* Features - single column */
   .features {
     grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 
+  /* Steps - more compact */
+  .step {
+    gap: var(--space-md);
+  }
+
+  .stepNumber {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  /* Shortcuts - hide on mobile (not applicable) */
+  .shortcuts {
+    display: none;
+  }
+
+  /* Footer with safe area */
   .footer {
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md) var(--mobile-padding);
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Disable hover effects on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .closeButton:hover {
+      color: var(--text-tertiary);
+      background: transparent;
+    }
+
+    .closeButton:active {
+      color: var(--text-primary);
+      background: var(--bg-subtle);
+    }
+
+    .link:hover {
+      border-color: var(--border-default);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .link:active {
+      border-color: var(--lilac-400);
+      background: var(--lilac-50);
+    }
   }
 }
 
