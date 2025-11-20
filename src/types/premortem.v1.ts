@@ -13,6 +13,8 @@
  * @date 2025-11-20
  */
 
+import { z } from 'zod';
+
 // ============================================
 // CORE DECISION MODEL
 // ============================================
@@ -408,6 +410,179 @@ export function isValidEvidenceType(value: string): value is EvidenceType {
 
 export function isValidAIProvider(value: string): value is AIProvider {
   return ['anthropic', 'openai'].includes(value);
+}
+
+// ============================================
+// TEMPLATE LIBRARY
+// ============================================
+
+/**
+ * Template categories for different decision types
+ */
+export type TemplateCategory =
+  | 'product'
+  | 'pricing'
+  | 'hiring'
+  | 'market'
+  | 'technical'
+  | 'partnership'
+  | 'investment'
+  | 'general';
+
+/**
+ * Human-readable labels for template categories
+ */
+export const TemplateCategoryLabels: Record<TemplateCategory, string> = {
+  product: 'Product Decisions',
+  pricing: 'Pricing & Revenue',
+  hiring: 'Hiring & Team',
+  market: 'Market Strategy',
+  technical: 'Technical & Architecture',
+  partnership: 'Partnerships & Alliances',
+  investment: 'Investment & Allocation',
+  general: 'General Decision-Making',
+};
+
+/**
+ * Template difficulty levels
+ */
+export type TemplateDifficulty = 'beginner' | 'intermediate' | 'advanced';
+
+/**
+ * Pre-Mortem Template Interface
+ * Provides structured starting point for common decision types
+ */
+export interface PreMortemTemplate {
+  // Template metadata
+  id: string;
+  title: string;
+  description: string;
+  category: TemplateCategory;
+  difficulty: TemplateDifficulty;
+  estimatedTime: string; // e.g., "30-45 minutes"
+  tags: string[];
+  author: {
+    name: string;
+    organization?: string;
+  };
+  version: string;
+
+  // Decision template with placeholders
+  decisionTemplate: {
+    title: string; // Can contain {{placeholders}}
+    description: string;
+    context: string;
+    goals: string[];
+    constraints: string[];
+    stakeholders: string[];
+    timeframe: string;
+  };
+
+  // Pre-populated scenario templates
+  scenarioTemplates: Array<{
+    title: string;
+    description: string;
+    likelihood: LikelihoodLevel;
+    impact: ImpactLevel;
+    category: ScenarioCategory;
+    rationale: string; // Why this scenario is relevant
+  }>;
+
+  // Pre-populated root cause templates
+  rootCauseTemplates: Array<{
+    description: string;
+    type: RootCauseType;
+    rationale: string; // Common reason this occurs
+  }>;
+
+  // Pre-populated mitigation templates
+  mitigationTemplates: Array<{
+    strategy: string;
+    effort: EffortLevel;
+    effectiveness: EffectivenessLevel;
+    bestPractices: string[]; // Implementation tips
+  }>;
+
+  // Guidance notes
+  guidanceNotes: {
+    when_to_use: string;
+    common_pitfalls: string[];
+    success_patterns: string[];
+  };
+}
+
+/**
+ * Zod schema for template validation
+ */
+export const PreMortemTemplateSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(10).max(200),
+  description: z.string().min(50).max(1000),
+  category: z.enum(['product', 'pricing', 'hiring', 'market', 'technical', 'partnership', 'investment', 'general']),
+  difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
+  estimatedTime: z.string(),
+  tags: z.array(z.string()).min(1).max(10),
+  author: z.object({
+    name: z.string(),
+    organization: z.string().optional(),
+  }),
+  version: z.string().regex(/^\d+\.\d+\.\d+$/),
+
+  decisionTemplate: z.object({
+    title: z.string().min(10),
+    description: z.string().min(50),
+    context: z.string().min(50),
+    goals: z.array(z.string()).min(1),
+    constraints: z.array(z.string()).min(0),
+    stakeholders: z.array(z.string()).min(1),
+    timeframe: z.string(),
+  }),
+
+  scenarioTemplates: z.array(z.object({
+    title: z.string().min(10),
+    description: z.string().min(50),
+    likelihood: z.enum(['low', 'medium', 'high']),
+    impact: z.enum(['low', 'medium', 'high', 'critical']),
+    category: z.enum(['technical', 'market', 'organizational', 'financial', 'regulatory', 'operational', 'strategic', 'external']),
+    rationale: z.string().min(20),
+  })).min(3).max(10),
+
+  rootCauseTemplates: z.array(z.object({
+    description: z.string().min(20),
+    type: z.enum(['assumption', 'constraint', 'dependency', 'capability', 'external', 'systemic']),
+    rationale: z.string().min(20),
+  })).min(3).max(10),
+
+  mitigationTemplates: z.array(z.object({
+    strategy: z.string().min(20),
+    effort: z.enum(['low', 'medium', 'high']),
+    effectiveness: z.enum(['low', 'medium', 'high']),
+    bestPractices: z.array(z.string()).min(1).max(5),
+  })).min(3).max(10),
+
+  guidanceNotes: z.object({
+    when_to_use: z.string().min(50),
+    common_pitfalls: z.array(z.string()).min(2).max(6),
+    success_patterns: z.array(z.string()).min(2).max(6),
+  }),
+});
+
+/**
+ * Type guard for template validation
+ */
+export function isValidTemplate(value: unknown): value is PreMortemTemplate {
+  return PreMortemTemplateSchema.safeParse(value).success;
+}
+
+/**
+ * Template registry interface
+ */
+export interface TemplateRegistry {
+  templates: PreMortemTemplate[];
+  categories: TemplateCategory[];
+  getById: (id: string) => PreMortemTemplate | undefined;
+  getByCategory: (category: TemplateCategory) => PreMortemTemplate[];
+  search: (query: string) => PreMortemTemplate[];
 }
 
 // ============================================

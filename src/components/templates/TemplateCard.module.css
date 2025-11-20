@@ -1,0 +1,223 @@
+/**
+ * TemplateCard Styles
+ * Individual template card component
+ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-fast);
+  cursor: pointer;
+  height: 100%;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+}
+
+.card:active {
+  transform: translateY(0);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.categoryBadge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.categoryProduct {
+  background: rgba(103, 200, 158, 0.15);
+  color: var(--mint-600);
+}
+
+.categoryPricing {
+  background: rgba(245, 196, 51, 0.15);
+  color: var(--sun-700);
+}
+
+.categoryHiring {
+  background: rgba(99, 173, 207, 0.15);
+  color: var(--sky-600);
+}
+
+.categoryMarket {
+  background: rgba(163, 134, 255, 0.15);
+  color: var(--purple-600);
+}
+
+.categoryTechnical {
+  background: rgba(234, 123, 75, 0.15);
+  color: var(--carrot-600);
+}
+
+.categoryPartnership {
+  background: rgba(244, 114, 182, 0.15);
+  color: var(--pink-600);
+}
+
+.categoryInvestment {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--green-600);
+}
+
+.categoryGeneral {
+  background: rgba(107, 114, 128, 0.15);
+  color: var(--text-secondary);
+}
+
+.difficultyBadge {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficultyBeginner {
+  background: var(--mint-500);
+  color: var(--ink-900);
+}
+
+.difficultyIntermediate {
+  background: var(--sun-500);
+  color: var(--ink-900);
+}
+
+.difficultyAdvanced {
+  background: var(--carrot-500);
+  color: var(--ink-900);
+}
+
+/* Content */
+.title {
+  font-size: var(--text-heading-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.description {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+/* Metadata */
+.metadata {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border-default);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+
+.metadataItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.metadataIcon {
+  font-size: 16px;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.tag {
+  padding: 3px 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+/* Action */
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+  transition: all var(--duration-fast);
+}
+
+.card:hover .action {
+  background: var(--color-primary);
+  border-color: var(--sun-600);
+  color: var(--ink-900);
+}
+
+.actionIcon {
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: var(--space-md);
+  }
+
+  .metadata {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .tags {
+    margin-top: var(--space-xs);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:active {
+    transform: none;
+  }
+}
