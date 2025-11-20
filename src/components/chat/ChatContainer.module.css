@@ -182,6 +182,16 @@
   outline-offset: 2px;
 }
 
+.headerButtonActive {
+  background: var(--sun-500);
+  color: var(--ink-900);
+}
+
+.headerButtonActive:hover {
+  background: var(--sun-600);
+  color: var(--ink-900);
+}
+
 /* Prevent header click when clicking buttons */
 .headerButton {
   pointer-events: auto;
@@ -254,6 +264,46 @@
   color: var(--text-secondary);
   margin: 0;
   max-width: 400px;
+}
+
+/* ============================================
+   GUIDED PROMPTS PANEL
+   ============================================ */
+
+.guidedPromptsPanel {
+  position: fixed;
+  right: var(--space-xl);
+  bottom: calc(80vh + var(--space-xl));
+  width: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--bg-paper);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  z-index: var(--z-dropdown);
+}
+
+.guidedPromptsPanelContent {
+  margin: 0;
+}
+
+/* Custom scrollbar for panel */
+.guidedPromptsPanel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.guidedPromptsPanel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.guidedPromptsPanel::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: var(--radius-sm);
+}
+
+.guidedPromptsPanel::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
 }
 
 /* ============================================

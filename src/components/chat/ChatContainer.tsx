@@ -10,6 +10,7 @@ import { useDecisionSession } from '@/context/DecisionSessionContext';
 import { ChatMessage } from './ChatMessage';
 import { TypingIndicator } from './TypingIndicator';
 import { ChatInput } from './ChatInput';
+import { ConversationalMode } from './ConversationalMode';
 import styles from './ChatContainer.module.css';
 
 type ChatState = 'collapsed' | 'medium' | 'full';
@@ -21,6 +22,7 @@ export function ChatContainer() {
   const [chatState, setChatState] = useState<ChatState>('collapsed');
   const [isDragging, setIsDragging] = useState(false);
   const [customHeight, setCustomHeight] = useState<number | null>(null);
+  const [showGuidedPrompts, setShowGuidedPrompts] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<HTMLDivElement>(null);
@@ -247,6 +249,24 @@ export function ChatContainer() {
         {/* Header Actions */}
         {chatState !== 'collapsed' && (
           <div className={styles.headerActions}>
+            <button
+              className={`${styles.headerButton} ${showGuidedPrompts ? styles.headerButtonActive : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowGuidedPrompts(!showGuidedPrompts);
+              }}
+              aria-label={showGuidedPrompts ? 'Hide guided prompts' : 'Show guided prompts'}
+              title="Guided Analysis"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M2 4h12M2 8h8M2 12h10"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
             {chatState !== 'full' && (
               <button
                 className={styles.headerButton}
@@ -305,7 +325,7 @@ export function ChatContainer() {
       {chatState !== 'collapsed' && (
         <>
           <div ref={messagesRef} className={styles.messages}>
-            {!hasMessages && (
+            {!hasMessages && !showGuidedPrompts && (
               <div className={styles.emptyState}>
                 <div className={styles.emptyIcon}>💬</div>
                 <p className={styles.emptyText}>
@@ -314,6 +334,20 @@ export function ChatContainer() {
                 <p className={styles.emptyHint}>
                   Ask questions, provide context, or explore potential risks
                 </p>
+              </div>
+            )}
+
+            {!hasMessages && showGuidedPrompts && (
+              <ConversationalMode session={session} onPromptSelect={handleSendMessage} />
+            )}
+
+            {hasMessages && showGuidedPrompts && chatState === 'full' && (
+              <div className={styles.guidedPromptsPanel}>
+                <ConversationalMode
+                  session={session}
+                  onPromptSelect={handleSendMessage}
+                  className={styles.guidedPromptsPanelContent}
+                />
               </div>
             )}
 
