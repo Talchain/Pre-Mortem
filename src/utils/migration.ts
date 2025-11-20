@@ -80,6 +80,7 @@ export function migrateFromLegacy(
     premortem: {
       failure_scenarios,
       mitigations,
+      evidence: [],
       confidence_level: legacy.adjustedConfidence,
       generated_at: legacy.createdAt.toISOString(),
     },

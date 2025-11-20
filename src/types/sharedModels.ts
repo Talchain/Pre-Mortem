@@ -84,6 +84,41 @@ export interface Stakeholder {
 }
 
 /* ============================================
+   EVIDENCE MANAGEMENT
+   ============================================ */
+
+export type EvidenceType =
+  | 'research'
+  | 'data'
+  | 'assumption'
+  | 'observation'
+  | 'document'
+  | 'stakeholder_input'
+  | 'historical_example';
+
+export type EvidenceConfidence = 'high' | 'medium' | 'low';
+
+export interface Evidence {
+  id: string;
+  type: EvidenceType;
+  title: string;
+  description: string;
+  source?: string; // URL, citation, or source description
+  confidence: EvidenceConfidence;
+  created_at: string;
+  updated_at: string;
+  tags: string[];
+
+  // Linking
+  linked_scenarios: string[]; // scenario IDs
+  linked_mitigations: string[]; // mitigation IDs
+
+  // Metadata
+  ai_generated: boolean;
+  verified: boolean; // User has verified this evidence
+}
+
+/* ============================================
    PRE-MORTEM ANALYSIS
    ============================================ */
 
@@ -92,6 +127,7 @@ export type ImpactLevel = 'catastrophic' | 'major' | 'moderate' | 'minor';
 export interface PreMortemAnalysis {
   failure_scenarios: FailureScenario[];
   mitigations: Mitigation[];
+  evidence: Evidence[];
   confidence_level: number;
   generated_at: string;
 }

@@ -163,6 +163,7 @@ describe('ScenarioSandboxIntegrationService', () => {
             created_at: '2025-01-01T00:00:00.000Z',
           },
         ],
+        evidence: [],
         confidence_level: 75,
         generated_at: '2025-01-01T00:00:00.000Z',
       },
